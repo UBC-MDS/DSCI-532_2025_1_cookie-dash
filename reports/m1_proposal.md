@@ -17,4 +17,4 @@ They can filter even further by the ingredient subcategories (Flour, Sugar, Fats
 Additionally, they can filter by specific ingredient from the list of ingredients.
 There is also a slider that will allow the user to filter by their desired recipe rating range.
 
-[Dashboard app sketch.](../img/sketch.png)
+![Dashboard app sketch.](../img/sketch.png)
