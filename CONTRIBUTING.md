@@ -1,8 +1,8 @@
-# Contributing to the Online Shoppers Purchasing Intention Prediction project
+# Contributing to the cookie-dash project
 
 # Feedback and Contribution
 
-We welcome any input, feedback, bug reports, and contributions via the **INSERT LINK TO REPO HERE** GitHub Repository. In addition, all contributions, suggestions, and feedback you submitted are accepted under the project's license **INSERT LICENSE LINK HERE**.
+We welcome any input, feedback, bug reports, and contributions via the [DSCI-532_2025_1_cookie-dash](https://github.com/UBC-MDS/DSCI-532_2025_1_cookie-dash) GitHub Repository. In addition, all contributions, suggestions, and feedback you submitted are accepted under the project's [license](https://github.com/UBC-MDS/DSCI-532_2025_1_cookie-dash/blob/main/LICENSE).
 
 ## How to Contribute:
 
@@ -15,9 +15,9 @@ We welcome any input, feedback, bug reports, and contributions via the **INSERT 
 -   Copy and paste the code below:
 
 ```         
-    git clone [INSERT HTTPS FOR REPO HERE]
+    git clone https://github.com/UBC-MDS/DSCI-532_2025_1_cookie-dash.git
     OR
-    git clone [INSERT SSH FOR REPO HERE]
+    git clone git@github.com:UBC-MDS/DSCI-532_2025_1_cookie-dash.git
 ```
 
 ### 3. Create Separate Branch:
@@ -44,7 +44,7 @@ Submit pull request on GitHub. Please include details of your changes in the pul
 
 ## Code of Conduct
 
-Please note that this project is released with a Contributor Code of Conduct **INSERT CODE OF CONDUCT LINK HERE**. By participating in this project you agree to abide by its terms and conditions.
+Please note that this project is released with a [Contributor Code of Conduct](https://github.com/UBC-MDS/DSCI-532_2025_1_cookie-dash/blob/main/CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms and conditions.
 
 ## Attribution
 
