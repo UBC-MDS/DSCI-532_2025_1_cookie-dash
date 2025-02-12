@@ -5,6 +5,20 @@ Authors: Mu (Henry) Ha, Javier Martinez, Stephanie Ta, and Zuer (Rebecca) Zhong
 
 ## Description of the Data
 
+For this project, we have selected the "Choc Chip Cookie Ingredients" dataset, which provides detailed, standardized ingredient information for 211 chocolate chip cookie recipes sourced from various online platforms. The dataset is organized at the ingredient level and comprises roughly 1,200 rows and 6 primary columns.
+
+| Header |  Data Type |Description |
+|---|---|---|
+| `Ingredient` |string| The standardized name of the ingredient. Variations such as “bleached flour” were consolidated under a single name (e.g., “all purpose flour”).|
+| `Text` |string| The complete textual description of the ingredient and its quantity, adjusted to yield 48 cookies per recipe.|
+| `Recipe_Index` | string | A unique identifier for each recipe. Prefixes like “AR\_” denote AllRecipes sources, “E\_” denotes Epicurious, and “Misc\_\_” denotes recipes collected by hand. |
+| `Rating` | float | A numeric value (0 to 1) representing the recipe’s rating, if available.|
+| `Quantity` | float | The amount of the ingredient, scaled to produce 48 cookies. |
+| `Unit` | string | The measurement unit for each ingredient.|
+
+This dataset provides a detailed collection of chocolate chip cookie recipes, including standardized ingredient lists and ratings. For individuals with allergies, the standardized ingredient data is particularly valuable as it allows for easy filtering of recipes based on allergen presence. For instance, someone with a nut or gluten allergy can quickly identify and exclude recipes that contain these ingredients, ensuring they select recipes that are safe for them. Additionally, by coupling the ingredient data with recipe ratings, users can filter for not only allergen-free recipes but also those that are highly rated, thereby improving the likelihood of finding the best recipe that meets both safety and quality criteria. 
+Moreover, we plan to engineer a new variable, "Ingredient Proportion," which will represent the ratio of each ingredient’s quantity relative to the total ingredient quantity for a given recipe. This variable will help standardize the comparison of ingredients across recipes by highlighting the relative importance of each component within the overall recipe formulation. In addition, we will develop an "Ingredient Popularity Score" for each ingredient, which quantifies how frequently the ingredient appears across the entire dataset; this score will enable us to distinguish between commonly used ingredients and those that are more unique or rare. Finally, we will derive a "Complexity Score" for each recipe. This score will take into account factors such as the number of steps and the structural complexity of the sentences, thereby providing an estimate of how intricate or challenging the recipe might be to execute.
+
 ## Research Questions and Usage Scenarios
 
 ## App Sketch & Brief Description
