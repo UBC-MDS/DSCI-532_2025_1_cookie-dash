@@ -1,1 +1,2 @@
-# DSCI-532_2025_1_app-name
+# Cookie dash
+Welcome to the **Cookie dash**! This interactive app, built with Python Dash, helps you explore a delicious dataset of cookie recipes with ease. Filter by ingredients, ratings, and categories to find the perfect recipe for any occasion, whether you’re baking for a party, a rainy day, or just to satisfy that sweet tooth. Powered by more than 200 cookie recipes and a sprinkle of humor, this dashboard makes sure you never settle for a mediocre cookie again!
