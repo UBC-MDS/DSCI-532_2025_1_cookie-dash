@@ -2,6 +2,19 @@
 Authors: Mu (Henry) Ha, Javier Martinez, Stephanie Ta, and Zuer (Rebecca) Zhong
 
 ## Motivation and Purpose
+**Our Role:**
+Data science team on a mission to spread cookie joy, one delicious recipe at a time! We mix data and dough with equal passion, trying to provide the best cookie recipes for each situation, because life's too short for bad cookies.
+**Target Audience:** 
+Home bakers, culinary enthusiasts, and food bloggers.
+**Problem Statement:**
+With the growing popularity of homemade and artisanal cookies, many bakers struggle to find the right recipes based on ingredients available, ratings, and overall performance. The lack of a clear and interactive tool to explore recipes by ingredient, rating, and recipe count makes it difficult to efficiently select the best recipe for their needs.
+**Purpose and Relevance:** 
+Our dashboard aims to bridge this gap by providing an intuitive interface for exploring cookie recipes. Users will be able to filter recipes based on ingredient types, ratings, and quantities, helping them identify the best-performing recipes quickly. This interactive tool will allow bakers to make informed decisions based on available ingredients and quality ratings, ultimately improving their baking experience.
+
+**Dashboard Assistance:** 
+The dashboard will include visualizations for ingredient distribution, recipe ratings, and the number of recipes per ingredient. Users can apply various filters, such as distinguishing between basic and special ingredients, or selecting specific ingredients. Additionally, a dynamic rating distribution chart will assist in evaluating the quality of the selected recipes, ensuring that users can easily find recipes that align with their preferences and constraints.
+
+Because let's face it, cookies are serious business, and someone has to crunch the numbers while others crunch the cookies!
 
 ## Description of the Data
 
