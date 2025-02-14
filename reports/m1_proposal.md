@@ -48,6 +48,10 @@ The number of recipes and average recipe rating will also be displayed.
 From the clickable boxes, the user can filter by overall category (basic or special ingredient).
 They can filter even further by the ingredient subcategories (Flour, Sugar, Fats, Eggs, Chocolate, and Other) by clicking on the icons.
 Additionally, they can filter by specific ingredient from the list of ingredients.
+The list of ingredients will also display the popularity score of the ingredient.
 There is also a slider that will allow the user to filter by their desired recipe rating range.
+Also, there is a list of all of the recipes that match the filters, with their complexity score.
+Users can hover over each recipe to see the full recipe and the ingredient proportions via a tooltip.
+Alternatively, they can click on the recipe and there will be a pop-up with the full recipe and the ingredient proportions.
 
 ![Dashboard app sketch.](../img/sketch.png)
