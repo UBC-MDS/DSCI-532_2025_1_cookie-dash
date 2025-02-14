@@ -6,6 +6,14 @@ Authors: Mu (Henry) Ha, Javier Martinez, Stephanie Ta, and Zuer (Rebecca) Zhong
 ## Description of the Data
 
 ## Research Questions and Usage Scenarios
+Emily is a mother of a child with severe food allergies, including an egg allergy, and she wants to find highly rated cookie 
+recipes that do not contain eggs. She wants to be able to [explore] the available recipes to [compare] different egg substitutes and [identify] the best-rated alternatives for her child’s diet.
+
+When Emily logs on to our app, she will see an overview of all the available cookie recipes, along with their ratings
+and ingredient lists. She can filter out recipes containing eggs and explore alternative ingredients used in highly rated recipes. As she applies the filters, Emily may, for example, notice that "applesauce" and "flaxseed" are commonly used as egg substitutes, and that recipes using flaxseed tend to have higher ratings. This allows her to compare the effectiveness of different substitutes and make an informed decision about which recipes to try.
+
+Based on her findings from using our app, Emily decides to try a highly rated egg-free cookie recipe that uses flaxseed. 
+She saves the recipe for future reference and shares it with an allergy-friendly baking group to help others in similar situations.
 
 ## App Sketch & Brief Description
 
