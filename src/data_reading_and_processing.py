@@ -8,6 +8,9 @@
 # ingredient proportion, ingredient popularity score, and complexity score.
 # Also saves the processed data to data/processed/processed_cookie_data.csv.
 
+# Usage from the project root:
+# python src/data_reading_and_processing.py
+
 import pandas as pd
 import requests
 import io
@@ -141,8 +144,46 @@ def categorize_subcategory(subcategory):
 
 def engineer_categories_and_subcategories(raw_data):
     """
-    Engineers the features: ingredient category and subcategory
+    Engineers the features: ingredient category and subcategory.
+    Returns a pandas dataframe with the new features.
     """
+    # get array of unique ingredients in raw_data
+    unique_ingredients = raw_data["Ingredient"].unique()
+
+    # get list of flour types in raw_data
+    flour_types = []
+    for i in unique_ingredients:
+        if "flour" in i:
+            flour_types.append(i)
+
+    # get list of sugar types in raw_data
+    sugar_types = []
+    for i in unique_ingredients:
+        if "sugar" in i:
+            sugar_types.append(i)
+    
+    # define a list of sweetener types
+    sweetener_types = sugar_types + ["corn syrup", "honey", "molasses", "applesauce"]
+
+    # define a list of fat_types
+    fat_types = ["butter", "margarine", "shortening", "vegetable oil"]
+
+    # get list of chocolate types in raw_data
+    chocolate_types = []
+    for i in unique_ingredients:
+        if "chocolate" in i:
+            chocolate_types.append(i)
+    
+    data_with_categories_and_subcategories = raw_data.copy()
+
+    # create subcategory column
+    data_with_categories_and_subcategories["subcategory"] = data_with_categories_and_subcategories["Ingredient"].apply(
+        sub_categorize_ingredient,
+        args=(flour_types, sweetener_types, fat_types, chocolate_types)
+        )
+
+    # create category column
+    data_with_categories_and_subcategories["category"] = data_with_categories_and_subcategories["subcategory"].apply(categorize_subcategory)
 
     return data_with_categories_and_subcategories
 
@@ -154,9 +195,17 @@ def main():
     ingredient proportion, ingredient popularity score, and complexity score.
     Saves the processed data to data/processed/processed_cookie_data.csv.
     """
+    # read data from web
     raw_data = read_data()
-    raw_data.to_csv("../data/raw/raw_cookie_data.csv")
 
+    # save raw data to csv
+    raw_data.to_csv("data/raw/raw_cookie_data.csv")
+
+    # engineer ingredient category and ingredient subcategory features
+    data_with_categories_and_subcategories = engineer_categories_and_subcategories(raw_data)
+
+    # save processed data
+    data_with_categories_and_subcategories.to_csv("data/processed/processed_cookie_data.csv")
 
 
 if __name__ == "__main__":
