@@ -24,7 +24,7 @@ Want to contribute or run the app yourself? Follow these steps:
 ### **1️⃣ Install Dependencies**  
 Clone the repository and install dependencies:  
 ```bash
-git clone https://github.com/your-repo/cookie-dash.git
+git clone https://github.com/UBC-MDS/DSCI-532_2025_1_cookie-dash.git
 cd cookie-dash
 pip install -r requirements.txt
 ```
