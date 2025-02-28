@@ -187,6 +187,107 @@ def engineer_categories_and_subcategories(raw_data):
 
     return data_with_categories_and_subcategories
 
+def calculate_ingredient_proportion(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Computes the proportion of each ingredient in a recipe.
+
+    Parameters:
+    -----------
+    df : pd.DataFrame
+        The dataset containing recipe ingredients and their quantities.
+
+    Returns:
+    --------
+    pd.DataFrame
+        The DataFrame with an additional 'Ingredient_Proportion' column.
+
+    Example:
+    --------
+    >>> data = {'Recipe_Index': ['R1', 'R1', 'R2'], 'Ingredient': ['flour', 'sugar', 'butter'], 'Quantity': [200, 100, 50]}
+    >>> df = pd.DataFrame(data)
+    >>> df = calculate_ingredient_proportion(df)
+    >>> print(df[['Recipe_Index', 'Ingredient', 'Ingredient_Proportion']])
+    """
+    df['total_quantity'] = df.groupby('Recipe_Index')['Quantity'].transform('sum')
+    df['Ingredient_Proportion'] = df['Quantity'] / df['total_quantity']
+    df.drop(columns=['total_quantity'], inplace=True)
+    return df
+
+def calculate_ingredient_popularity(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Calculates and normalizes the popularity score for each ingredient based on its occurrence across recipes.
+
+    Formula:
+        Raw Popularity = (Number of Recipes Containing Ingredient) / (Total Recipes)
+        Normalized Popularity = (Raw Popularity - min) / (max - min)
+
+    Parameters:
+    -----------
+    df : pd.DataFrame
+        The dataset containing ingredient information.
+
+    Returns:
+    --------
+    pd.DataFrame
+        The DataFrame with an additional 'Popularity_Score' column (normalized between 0 and 1).
+
+    Example:
+    --------
+    >>> data = {'Recipe_Index': ['R1', 'R1', 'R2', 'R2', 'R2'], 'Ingredient': ['flour', 'sugar', 'butter', 'milk', 'vanilla']}
+    >>> df = pd.DataFrame(data)
+    >>> df = calculate_ingredient_popularity(df)
+    >>> print(df[['Ingredient', 'Popularity_Score']].drop_duplicates())
+    """
+    # Count how many unique recipes contain each ingredient
+    ingredient_counts = df.groupby('Ingredient')['Recipe_Index'].nunique()
+
+    # Normalize the popularity score between 0 and 1
+    min_count = ingredient_counts.min()
+    max_count = ingredient_counts.max()
+    ingredient_counts = (ingredient_counts - min_count) / (max_count - min_count)
+
+    # Merge back to the original DataFrame
+    df = df.merge(ingredient_counts.rename("Popularity_Score"), on="Ingredient")
+
+    return df
+
+def calculate_complexity_score(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Computes a normalized complexity score based on the number of unique ingredients per recipe.
+
+    The complexity score is calculated as:
+        (num_ingredients - min(num_ingredients)) / (max(num_ingredients) - min(num_ingredients))
+
+    Parameters:
+    -----------
+    df : pd.DataFrame
+        The dataset containing recipes and their ingredients.
+
+    Returns:
+    --------
+    pd.DataFrame
+        The DataFrame with an additional 'Complexity_Score' column.
+
+    Example:
+    --------
+    >>> data = {'Recipe_Index': ['R1', 'R1', 'R2', 'R2', 'R2'], 'Ingredient': ['flour', 'sugar', 'butter', 'milk', 'vanilla']}
+    >>> df = pd.DataFrame(data)
+    >>> df = calculate_complexity_score(df)
+    >>> print(df[['Recipe_Index', 'Complexity_Score']].drop_duplicates())
+    """
+    # Count the number of unique ingredients per recipe
+    ingredient_counts = df.groupby('Recipe_Index')['Ingredient'].nunique()
+
+    # Normalize complexity score between 0 and 1
+    min_count = ingredient_counts.min()
+    max_count = ingredient_counts.max()
+    ingredient_counts = (ingredient_counts - min_count) / (max_count - min_count)
+
+    # Merge back to the original DataFrame
+    df = df.merge(ingredient_counts.rename("Complexity_Score"), on="Recipe_Index")
+
+    return df
+
 def main():
     """
     Reads in the raw data from the web and saves it to data/raw/raw_cookie_data.csv.
@@ -201,12 +302,20 @@ def main():
     # save raw data to csv
     raw_data.to_csv("data/raw/raw_cookie_data.csv")
 
-    # engineer ingredient category and ingredient subcategory features
-    data_with_categories_and_subcategories = engineer_categories_and_subcategories(raw_data)
+    # Engineer ingredient categories and subcategories
+    processed_data = engineer_categories_and_subcategories(raw_data)
 
-    # save processed data
-    data_with_categories_and_subcategories.to_csv("data/processed/processed_cookie_data.csv")
+    # Compute ingredient proportion
+    processed_data = calculate_ingredient_proportion(processed_data)
 
+    # Compute ingredient popularity score
+    processed_data = calculate_ingredient_popularity(processed_data)
+
+    # Compute complexity score using the 'Text' column
+    processed_data = calculate_complexity_score(processed_data)
+
+    # Save processed data
+    processed_data.to_csv("data/processed/processed_cookie_data.csv")
 
 if __name__ == "__main__":
     main()
