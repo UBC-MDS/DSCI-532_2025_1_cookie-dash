@@ -2,7 +2,6 @@ import pandas as pd
 import altair as alt
 from dash import dcc, html, callback, Input, Output
 import dash_vega_components as dvc
-# import dash_vtk  # Ensure Dash can render Altair charts
 
 df = pd.read_csv("data/processed/processed_cookie_data.csv")
 
@@ -10,7 +9,7 @@ def distribution_recipe_ratings():
     return html.Div(
         className="distribution_recipe_ratings",
         children=[
-            html.H4("Distribution of Recipe Ratings", style={"color": "white", "textAlign": "center"}),
+            "Distribution of Recipe Ratings",
             dvc.Vega(id='rating_histogram', spec={}),
             dcc.RangeSlider(
                 id='x-range',
@@ -30,19 +29,18 @@ def distribution_recipe_ratings():
         }
     )
 
-
-
-# Callback to update histogram based on slider values
+# Callback to update histogram x-axis based on slider values
 @callback(
-    Output("rating_histogram", "figure"),
+    Output("rating_histogram", "spec"),
     Input("x-range", "value"),
 )
-def create_ratings_distribution(x_range=[0, 10]):
-    # Altair histogram with dynamic x-axis limits
-    chart = alt.Chart(df).mark_bar().encode(
-        alt.X("Rating:Q", bin=alt.Bin(maxbins=20), title="Rating", scale=alt.Scale(domain=[x_range[0], x_range[1]])),
+def create_ratings_distribution(x_range=[0, 1]):
+    data_in_range = df.query('Rating.between(@x_range[0], @x_range[1])')
+
+    chart = alt.Chart(data_in_range).mark_bar().encode(
+        alt.X("Rating:Q", bin=alt.Bin(maxbins=20), title="Rating"),
         alt.Y("count()", title="Count"),
         tooltip=["Rating"]
-    ).properties(title="Distribution of Recipe Ratings", width=600)
+    ).properties(width=510, height=95)
 
-    return chart.interactive().to_dict()
+    return (chart.to_dict())
