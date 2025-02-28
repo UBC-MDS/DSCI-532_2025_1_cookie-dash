@@ -13,9 +13,11 @@ def distribution_recipe_ratings():
             dvc.Vega(id='rating_histogram', spec={}),
             dcc.RangeSlider(
                 id='x-range',
-                min=df['Rating'].min(),
-                max=df['Rating'].max(),
-                value=[df['Rating'].min(), df['Rating'].max()],
+                min=0,
+                max=1,
+                value=[0, 1],
+                step=0.1,
+                marks={i: {'label': str(i), 'style': {'color': 'white'}} for i in [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]},
             )
         ],
         style={
