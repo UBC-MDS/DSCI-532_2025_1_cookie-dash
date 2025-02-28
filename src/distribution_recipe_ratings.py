@@ -9,7 +9,6 @@ def distribution_recipe_ratings():
     return html.Div(
         className="distribution_recipe_ratings",
         children=[
-            "Distribution of Recipe Ratings",
             dvc.Vega(id='rating_histogram', spec={}),
             dcc.RangeSlider(
                 id='x-range',
@@ -23,7 +22,7 @@ def distribution_recipe_ratings():
         style={
             "backgroundColor": "#8B0000",
             "color": "#fff",
-            "padding": "20px",
+            "padding": "10px",
             "gridColumnStart": "col1-start",
             "gridColumnEnd": "col6-start",
             "gridRowStart": "row6-start",
@@ -43,6 +42,6 @@ def create_ratings_distribution(x_range=[0, 1]):
         alt.X("Rating:Q", bin=alt.Bin(maxbins=20), title="Rating"),
         alt.Y("count()", title="Count"),
         tooltip=["Rating"]
-    ).properties(width=510, height=95)
+    ).properties(title="Distribution of Recipe Ratings", width=540, height=110)
 
     return (chart.to_dict())
