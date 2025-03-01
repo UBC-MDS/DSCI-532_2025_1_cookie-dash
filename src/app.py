@@ -15,6 +15,8 @@ from recipes_and_complexity import recipes_and_complexity, update_recipe_list
 # Initialize the Dash app with Bootstrap theme
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
+server = app.server
+
 # Layout mimicking the original HTML structure
 app.layout = html.Div(
     className="content",
@@ -55,4 +57,4 @@ app.layout = html.Div(
 )
 
 if __name__ == '__main__':
-    app.run_server(debug=True, host='127.0.0.1')
+    app.run_server()
