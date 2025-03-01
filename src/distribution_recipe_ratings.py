@@ -46,8 +46,9 @@ def create_ratings_distribution(rating_range=[0, 1]): #, selected_ingredients=Fa
     # the recipe's rating per ingredient should be the same, so "mean" doesn't really do anything
     filtered_df = filtered_df.groupby("Recipe_Index")['Rating'].mean().reset_index()
 
+
     chart = alt.Chart(filtered_df).mark_bar().encode(
-        alt.X("Rating:Q", bin=alt.Bin(maxbins=20), title="Rating"),
+        alt.X("Rating:Q", bin=alt.Bin(maxbins=10), title="Rating", scale=alt.Scale(domain=rating_range)),
         alt.Y("count():Q", title="Count"),
         tooltip=[alt.Tooltip("count():Q", title="Number of Recipes")]
     ).properties(title="Distribution of Recipe Ratings", width=535, height=110)
