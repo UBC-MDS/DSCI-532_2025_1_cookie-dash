@@ -3,21 +3,8 @@ import altair as alt
 from dash import dcc, html, callback, Input, Output
 import dash_vega_components as dvc
 
-
-
-
 # Load data
 df = pd.read_csv("data/processed/processed_cookie_data.csv")
-
-
-
-
-# Compute how many distinct recipes each ingredient appears in
-df_ingredient_counts = df.groupby("Ingredient")["Recipe_Index"].nunique().reset_index()
-df_ingredient_counts.columns = ["Ingredient", "Recipe_Count"]
-
-
-
 
 def number_of_recipes_per_ingredient():
   """
@@ -48,17 +35,22 @@ def number_of_recipes_per_ingredient():
       }
   )
 
-
-
-
 @callback(
    Output("ingredient_bar_chart", "spec"), 
-   Input("ingredient_bar_chart", "id") 
+   Input("ingredient_bar_chart", "id"),
+   Input("rating-range", "value"),
 )
-def create_ingredient_distribution(_):
+def create_ingredient_distribution(_, rating_range=[0, 1]):
    """
    Generates an Altair bar chart showing the number of recipes per ingredient.
    """
+   # connect output to the ratings slider
+   filtered_df = df.query('Rating.between(@rating_range[0], @rating_range[1])')
+   
+   # Compute how many distinct recipes each ingredient appears in
+   df_ingredient_counts = filtered_df.groupby("Ingredient")["Recipe_Index"].nunique().reset_index()
+   df_ingredient_counts.columns = ["Ingredient", "Recipe_Count"]
+
    chart = (
        alt.Chart(df_ingredient_counts)
        .mark_bar()
@@ -69,8 +61,8 @@ def create_ingredient_distribution(_):
        )
        .properties(
            title="Number of Recipes per Ingredient",
-           width=350,
-           height=600
+           width=140,
+           height=450
        )
    )
 
