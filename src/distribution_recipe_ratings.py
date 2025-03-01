@@ -11,7 +11,7 @@ def distribution_recipe_ratings():
         children=[
             dvc.Vega(id='rating_histogram', spec={}),
             dcc.RangeSlider(
-                id='x-range',
+                id='rating-range',
                 min=0,
                 max=1,
                 value=[0, 1],
@@ -33,15 +33,23 @@ def distribution_recipe_ratings():
 # Callback to update histogram x-axis based on slider values
 @callback(
     Output("rating_histogram", "spec"),
-    Input("x-range", "value"),
+    Input("rating-range", "value"),
+    # Input("selected-ingredients", "value"),
 )
-def create_ratings_distribution(x_range=[0, 1]):
-    data_in_range = df.query('Rating.between(@x_range[0], @x_range[1])')
+def create_ratings_distribution(rating_range=[0, 1]): #, selected_ingredients=False):
+    filtered_df = df.query('Rating.between(@rating_range[0], @rating_range[1])')
 
-    chart = alt.Chart(data_in_range).mark_bar().encode(
+    # if selected_ingredients:
+    #     filtered_df = filtered_df[filtered_df["Ingredient"].isin(selected_ingredients)]
+
+    # group by recipe ID so that there is only one entry per recipe instead of per ingredient in the recipe
+    # the recipe's rating per ingredient should be the same, so "mean" doesn't really do anything
+    filtered_df = filtered_df.groupby("Recipe_Index")['Rating'].mean().reset_index()
+
+    chart = alt.Chart(filtered_df).mark_bar().encode(
         alt.X("Rating:Q", bin=alt.Bin(maxbins=20), title="Rating"),
-        alt.Y("count()", title="Count"),
-        tooltip=["Rating"]
-    ).properties(title="Distribution of Recipe Ratings", width=540, height=110)
+        alt.Y("count():Q", title="Count"),
+        tooltip=[alt.Tooltip("count():Q", title="Number of Recipes")]
+    ).properties(title="Distribution of Recipe Ratings", width=535, height=110)
 
     return (chart.to_dict())
