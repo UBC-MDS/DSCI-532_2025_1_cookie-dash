@@ -1,4 +1,4 @@
-from dash import Dash, html
+from dash import Dash, html, dcc
 import dash_bootstrap_components as dbc
 
 # Import component functions
@@ -21,6 +21,7 @@ server = app.server
 app.layout = html.Div(
     className="content",
     children=[
+        dcc.Store(id='selected-subcategory', storage_type='memory'),
         header(),
         html.Main(
             children=[
