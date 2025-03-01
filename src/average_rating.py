@@ -13,6 +13,7 @@ def average_rating():
     return html.Div(
         className="average_rating",
         children=[
+            "", 
             dcc.Graph(
                 id="rating_gauge",
                 config={"displayModeBar": False},  # Hide toolbar
@@ -61,21 +62,21 @@ def update_gauge_chart(_, rating_range=[0, 1]):
     fig = go.Figure(
         go.Indicator(
             mode="gauge+number",
-            value=avg_rating,
+            value=round(avg_rating, 2),
             title={"text": f"Average Rating: {avg_rating:.2f}", "font": {"size": 16, "color": "#fff"}},
             domain={"x": [0, 1], "y": [0, 1]},   # Fill the entire chart area (full circle)
             gauge={
                 "axis": {
-                    "range": [0, 10],
+                    "range": [0, 1],
                     "tickmode": "linear",
                     "tick0": 0,
-                    "dtick": 2,
+                    "dtick": 0.2,
                     "tickfont": {"color": "#fff", "size": 12}
                 },
                 "bar": {"color": "red", "thickness": 0.3},  # Ensure the dial color is distinct
                 "steps": [
                     {"range": [0, avg_rating], "color": "lightblue"},  # Color up to average rating
-                    {"range": [avg_rating, 10], "color": "lightgray"},  # Remaining range
+                    {"range": [avg_rating, 1], "color": "lightgray"},  # Remaining range
                 ],
                 "threshold": {
                     "line": {"color": "red", "width": 4},
