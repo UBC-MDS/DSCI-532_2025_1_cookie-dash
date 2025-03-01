@@ -22,16 +22,17 @@ Finding the right cookie recipe can be overwhelming. Our app helps you:
 Want to contribute or run the app yourself? Follow these steps:  
 
 ### **1️⃣ Install Dependencies**  
-Clone the repository and install dependencies:  
+Clone the repository and install dependencies via a conda environment:  
 ```bash
 git clone https://github.com/UBC-MDS/DSCI-532_2025_1_cookie-dash.git
-cd cookie-dash
-pip install -r requirements.txt
+cd DSCI-532_2025_1_cookie-dash
+conda env create -f environment.yml
+conda activate cookie-dash
 ```
 
 ### **2️⃣ Run the App**  
 ```bash
-python src/app.py
+python -m src.app
 ```
 The dashboard will be accessible at **`http://127.0.0.1:8050/`** in your browser.  
 
