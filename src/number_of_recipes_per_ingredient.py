@@ -44,7 +44,7 @@ def create_ingredient_distribution(_, rating_range=[0, 1]):
    """
    Generates an Altair bar chart showing the number of recipes per ingredient.
    """
-   # connect output to the ratings slider
+   # connect to the ratings slider
    filtered_df = df.query('Rating.between(@rating_range[0], @rating_range[1])')
    
    # Compute how many distinct recipes each ingredient appears in
