@@ -43,7 +43,7 @@ def average_rating():
     Input("rating_gauge", "id"),  # No need for slider input
     Input("rating-range", "value"),
 )
-def update_gauge_chart(_):
+def update_gauge_chart(_, rating_range=[0, 1]):
     """
     Compute the average rating and update the gauge with a moving dial color.
     """
