@@ -40,14 +40,22 @@ def average_rating():
 
 @callback(
     Output("rating_gauge", "figure"),
-    Input("rating_gauge", "id")  # No need for slider input
+    Input("rating_gauge", "id"),  # No need for slider input
+    Input("rating-range", "value"),
 )
 def update_gauge_chart(_):
     """
     Compute the average rating and update the gauge with a moving dial color.
     """
+    # connect to the ratings slider
+    filtered_df = df.query('Rating.between(@rating_range[0], @rating_range[1])')
+
+    # group by recipe ID so that there is only one entry per recipe instead of per ingredient in the recipe
+    # the recipe's rating per ingredient should be the same, so "mean" doesn't really do anything
+    filtered_df = filtered_df.groupby("Recipe_Index")['Rating'].mean().reset_index()
+
     # Compute average rating
-    avg_rating = df["Rating"].mean() if not df.empty else 0
+    avg_rating = filtered_df["Rating"].mean() if not filtered_df.empty else 0
 
     # Create Plotly Gauge with a dynamically moving dial color
     fig = go.Figure(
