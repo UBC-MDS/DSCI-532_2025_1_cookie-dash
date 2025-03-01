@@ -50,9 +50,9 @@ def recipes_and_complexity():
 @callback(
     Output("recipe-list", "children"),
     Input("ingredient-select", "value"),
-    Input("rating-slider", "value")
+    Input("rating-range", "value")
 )
-def update_recipe_list(selected_ingredients, selected_rating_range):
+def update_recipe_list(selected_ingredients, rating_range=[0, 1]):
     """
     Updates the displayed list of recipes based on selected ingredients and rating range.
 
@@ -71,8 +71,8 @@ def update_recipe_list(selected_ingredients, selected_rating_range):
 
     # Filter by rating range
     filtered_df = filtered_df[
-        (filtered_df["Rating"] >= selected_rating_range[0]) &
-        (filtered_df["Rating"] <= selected_rating_range[1])
+        (filtered_df["Rating"] >= rating_range[0]) &
+        (filtered_df["Rating"] <= rating_range[1])
     ]
 
     # Filter by ingredient selection (if ingredients are selected)
