@@ -34,7 +34,7 @@ We implemented an additional list of selected ingredients, so that the user can 
 
 ## Potential Future Improvements and Additions
 
-At the moment, our dashboard does a good job at displaying overall information about recipes that match the filters that are available. In the future, we would like to finish implementing the rest of the dashboard as specified under "Non-Implemented Parts of the Proposal and Sketch".
+At the moment, our dashboard does a good job at displaying overall information about recipes that match the filters that are available. In the future, we would like to finish implementing the rest of the dashboard as specified under "Non-Implemented Parts of the Proposal and Sketch". We would also like to improve the format of the dashboard, so that plots are displayed more nicely and are not cut off.
 
 ## Intentional Deviations from Visualization Best Practices
 
