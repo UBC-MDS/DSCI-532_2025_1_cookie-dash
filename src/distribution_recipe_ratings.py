@@ -34,13 +34,13 @@ def distribution_recipe_ratings():
 @callback(
     Output("rating_histogram", "spec"),
     Input("rating-range", "value"),
-    # Input("selected-ingredients", "value"),
+    Input("ingredient-checklist", "value"),
 )
-def create_ratings_distribution(rating_range=[0, 1]): #, selected_ingredients=False):
+def create_ratings_distribution(rating_range=[0, 1], selected_ingredients=None):
     filtered_df = df.query('Rating.between(@rating_range[0], @rating_range[1])')
 
-    # if selected_ingredients:
-    #     filtered_df = filtered_df[filtered_df["Ingredient"].isin(selected_ingredients)]
+    if selected_ingredients:
+        filtered_df = filtered_df[filtered_df["Ingredient"].isin(selected_ingredients)]
 
     # group by recipe ID so that there is only one entry per recipe instead of per ingredient in the recipe
     # the recipe's rating per ingredient should be the same, so "mean" doesn't really do anything

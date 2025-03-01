@@ -39,13 +39,18 @@ def number_of_recipes_per_ingredient():
    Output("ingredient_bar_chart", "spec"), 
    Input("ingredient_bar_chart", "id"),
    Input("rating-range", "value"),
+   Input("ingredient-checklist", "value")
 )
-def create_ingredient_distribution(_, rating_range=[0, 1]):
+def create_ingredient_distribution(_, rating_range=[0, 1], selected_ingredients=None):
    """
    Generates an Altair bar chart showing the number of recipes per ingredient.
    """
    # connect to the ratings slider
    filtered_df = df.query('Rating.between(@rating_range[0], @rating_range[1])')
+
+   # If ingredients are selected, filter by those as well
+   if selected_ingredients:
+    filtered_df = filtered_df[filtered_df["Ingredient"].isin(selected_ingredients)]
    
    # Compute how many distinct recipes each ingredient appears in
    df_ingredient_counts = filtered_df.groupby("Ingredient")["Recipe_Index"].nunique().reset_index()

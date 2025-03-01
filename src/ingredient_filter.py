@@ -27,6 +27,7 @@ def ingredient_filter():
         },
         children=[
             # We'll place two "columns" within this parent DIV
+            
             html.Div(
                 style={"width": "100%", "display": "flex"},
                 children=[
@@ -67,11 +68,15 @@ def update_ingredient_checklist(selected_subcat):
     2) Reset the `value` (selected items) to empty each time subcategory changes.
     """
     if not selected_subcat:
-        # If no subcategory chosen, show nothing
-        return [], []
+        # Show all unique ingredients if no subcategory is selected
+        ingredients = df_recipes["Ingredient"].dropna().unique()
+    else:
+        # Show only ingredients from the selected subcategory
+        df = df_recipes[df_recipes["subcategory"] == selected_subcat]
+        ingredients = df["Ingredient"].dropna().unique()
 
-    df = df_recipes[df_recipes["subcategory"] == selected_subcat]
-    ingredients = df["Ingredient"].dropna().unique()
+    if len(ingredients) == 0:
+        return [{"label": "No ingredients available", "value": ""}], []
 
     # Build list of label/value pairs for the Checklist
     options = [{"label": ing, "value": ing} for ing in ingredients]

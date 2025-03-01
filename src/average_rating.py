@@ -43,13 +43,18 @@ def average_rating():
     Output("rating_gauge", "figure"),
     Input("rating_gauge", "id"),  # No need for slider input
     Input("rating-range", "value"),
+    Input("ingredient-checklist", "value"),
 )
-def update_gauge_chart(_, rating_range=[0, 1]):
+def update_gauge_chart(_, rating_range=[0, 1], selected_ingredients=None):
     """
     Compute the average rating and update the gauge with a moving dial color.
     """
     # connect to the ratings slider
     filtered_df = df.query('Rating.between(@rating_range[0], @rating_range[1])')
+
+    # If ingredients are selected, filter by those as well
+    if selected_ingredients:
+        filtered_df = filtered_df[filtered_df["Ingredient"].isin(selected_ingredients)]
 
     # group by recipe ID so that there is only one entry per recipe instead of per ingredient in the recipe
     # the recipe's rating per ingredient should be the same, so "mean" doesn't really do anything

@@ -50,10 +50,10 @@ def recipes_and_complexity():
 
 @callback(
     Output("recipe-list", "children"),
-    # Input("ingredient-select", "value"),
-    Input("rating-range", "value")
+    Input("rating-range", "value"),
+    Input("ingredient-checklist", "value"),
 )
-def update_recipe_list(rating_range=[0, 1]): #selected_ingredients, rating_range=[0, 1]):
+def update_recipe_list(rating_range=[0, 1], selected_ingredients=None): 
     """
     Updates the displayed list of recipes based on selected ingredients and rating range.
 
@@ -76,9 +76,9 @@ def update_recipe_list(rating_range=[0, 1]): #selected_ingredients, rating_range
         (filtered_df["Rating"] <= rating_range[1])
     ]
 
-    # # Filter by ingredient selection (if ingredients are selected)
-    # if selected_ingredients:
-    #     filtered_df = filtered_df[filtered_df["Ingredient"].isin(selected_ingredients)]
+    # Filter by ingredient selection (if ingredients are selected)
+    if selected_ingredients:
+        filtered_df = filtered_df[filtered_df["Ingredient"].isin(selected_ingredients)]
 
     # If no recipes match, show message
     if filtered_df.empty:
