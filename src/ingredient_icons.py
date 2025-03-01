@@ -69,11 +69,17 @@ def ingredient_icons():
     Output('selected-subcategory', 'data'),
     Input({'type': 'subcategory-button', 'index': ALL}, 'n_clicks')
 )
-def update_selected_subcategory():
+def update_selected_subcategory(n_clicks_list):
+    # `n_clicks_list` will be the list of click counts from all matched subcategory-buttons
+    import dash
+    from dash import callback_context as ctx
+    import ast
+    
+    # If no triggers, prevent update
     if not ctx.triggered:
         raise dash.exceptions.PreventUpdate
+    
     triggered_id_str = ctx.triggered[0]['prop_id'].split('.')[0]
-    import ast
     triggered_id = ast.literal_eval(triggered_id_str)
 
     return triggered_id['index']
