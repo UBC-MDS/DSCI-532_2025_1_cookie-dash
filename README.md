@@ -13,8 +13,11 @@ Finding the right cookie recipe can be overwhelming. Our app helps you:
 ---
 
 ## 🚀 **Try It Out!**  
-🔗 **[Live Dashboard](#)**
-🎥 **Demo GIF:** ![Cookie Dash Demo](#)
+🔗 **[Live Dashboard](https://dsci-532-2025-1-cookie-dash.onrender.com/)**
+
+🎥 **Demo GIF:** 
+
+![Cookie Dash Demo](img/demo.gif)
 
 ---
 
