@@ -16,13 +16,14 @@ def recipes_and_complexity():
     """
     return html.Div(
         [
-            html.H4("Recipes & Complexity", style={"textDecoration": "underline", "textAlign": "center"}),
+            html.Div("Recipes & Complexity", style={"fontSize": 17, "textAlign": "center", "color": "#fff"}),
 
             # Container for recipe list
-            html.Ul(id="recipe-list", style={
+            html.Ul(
+                id="recipe-list", style={
                 "listStyleType": "none",
                 "padding": "10px",
-                "maxHeight": "250px",
+                "maxHeight": "320px",
                 "overflowY": "auto",
                 "border": "1px solid #000",
                 "borderRadius": "5px",
@@ -49,10 +50,10 @@ def recipes_and_complexity():
 
 @callback(
     Output("recipe-list", "children"),
-    Input("ingredient-select", "value"),
-    Input("rating-range", "value")
+    Input("rating-range", "value"),
+    Input("ingredient-checklist", "value"),
 )
-def update_recipe_list(selected_ingredients, rating_range=[0, 1]):
+def update_recipe_list(rating_range=[0, 1], selected_ingredients=None): 
     """
     Updates the displayed list of recipes based on selected ingredients and rating range.
 
@@ -86,7 +87,7 @@ def update_recipe_list(selected_ingredients, rating_range=[0, 1]):
     # Display filtered recipes with complexity scores
     return [
         html.Li(
-            f"{row['Recipe_Index']}: {row['Complexity_Score']}",
+            f"{row['Recipe_Index']}: {row['Complexity_Score']:.2f}",
             style={"padding": "5px", "borderBottom": "1px solid #ccc"}
         )
         for _, row in filtered_df.iterrows()

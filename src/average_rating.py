@@ -13,6 +13,7 @@ def average_rating():
     return html.Div(
         className="average_rating",
         children=[
+            "", 
             dcc.Graph(
                 id="rating_gauge",
                 config={"displayModeBar": False},  # Hide toolbar
@@ -40,34 +41,47 @@ def average_rating():
 
 @callback(
     Output("rating_gauge", "figure"),
-    Input("rating_gauge", "id")  # No need for slider input
+    Input("rating_gauge", "id"),  # No need for slider input
+    Input("rating-range", "value"),
+    Input("ingredient-checklist", "value"),
 )
-def update_gauge_chart(_):
+def update_gauge_chart(_, rating_range=[0, 1], selected_ingredients=None):
     """
     Compute the average rating and update the gauge with a moving dial color.
     """
+    # connect to the ratings slider
+    filtered_df = df.query('Rating.between(@rating_range[0], @rating_range[1])')
+
+    # If ingredients are selected, filter by those as well
+    if selected_ingredients:
+        filtered_df = filtered_df[filtered_df["Ingredient"].isin(selected_ingredients)]
+
+    # group by recipe ID so that there is only one entry per recipe instead of per ingredient in the recipe
+    # the recipe's rating per ingredient should be the same, so "mean" doesn't really do anything
+    filtered_df = filtered_df.groupby("Recipe_Index")['Rating'].mean().reset_index()
+
     # Compute average rating
-    avg_rating = df["Rating"].mean() if not df.empty else 0
+    avg_rating = filtered_df["Rating"].mean() if not filtered_df.empty else 0
 
     # Create Plotly Gauge with a dynamically moving dial color
     fig = go.Figure(
         go.Indicator(
             mode="gauge+number",
-            value=avg_rating,
+            value=round(avg_rating, 2),
             title={"text": f"Average Rating: {avg_rating:.2f}", "font": {"size": 16, "color": "#fff"}},
             domain={"x": [0, 1], "y": [0, 1]},   # Fill the entire chart area (full circle)
             gauge={
                 "axis": {
-                    "range": [0, 10],
+                    "range": [0, 1],
                     "tickmode": "linear",
                     "tick0": 0,
-                    "dtick": 2,
+                    "dtick": 0.2,
                     "tickfont": {"color": "#fff", "size": 12}
                 },
                 "bar": {"color": "red", "thickness": 0.3},  # Ensure the dial color is distinct
                 "steps": [
                     {"range": [0, avg_rating], "color": "lightblue"},  # Color up to average rating
-                    {"range": [avg_rating, 10], "color": "lightgray"},  # Remaining range
+                    {"range": [avg_rating, 1], "color": "lightgray"},  # Remaining range
                 ],
                 "threshold": {
                     "line": {"color": "red", "width": 4},

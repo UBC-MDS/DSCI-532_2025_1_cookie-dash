@@ -3,6 +3,7 @@ from dash import callback_context as ctx
 import dash_bootstrap_components as dbc
 import dash
 import pandas as pd
+import ast
 
 csv_path = "data/processed/processed_cookie_data.csv"
 
@@ -71,13 +72,14 @@ def ingredient_icons():
 )
 def update_selected_subcategory(n_clicks_list):
     # `n_clicks_list` will be the list of click counts from all matched subcategory-buttons
-    import dash
-    from dash import callback_context as ctx
-    import ast
-    
+    ctx = dash.callback_context
+
+    # If no button is clicked, return all unique ingredients
+    if not ctx.triggered or sum(n_clicks_list) == 0:
+        return df_recipes["Ingredient"].dropna().unique().tolist()    
     # If no triggers, prevent update
-    if not ctx.triggered:
-        raise dash.exceptions.PreventUpdate
+    #if not ctx.triggered:
+    #    raise dash.exceptions.PreventUpdate
     
     triggered_id_str = ctx.triggered[0]['prop_id'].split('.')[0]
     triggered_id = ast.literal_eval(triggered_id_str)
