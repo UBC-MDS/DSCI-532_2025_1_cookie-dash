@@ -103,7 +103,7 @@ def sub_categorize_ingredient(ingredient, flour_types, sweetener_types, fat_type
         return "fat"
     elif ingredient == "egg":
         return "egg"
-    elif ingredient == chocolate_types:
+    elif ingredient in chocolate_types:
         return "chocolate"
     else:
         return "other"
