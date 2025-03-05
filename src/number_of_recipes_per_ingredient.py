@@ -62,15 +62,18 @@ def create_ingredient_distribution(_, rating_range=[0, 1], selected_ingredients=
        alt.Chart(df_ingredient_counts)
        .mark_bar()
        .encode(
-           alt.X("Recipe_Count:Q", title="Number of Recipes"),
+           alt.X("Recipe_Count:Q", title="Number of Recipes", axis=alt.Axis(gridColor='#D2A679')),
            alt.Y("Ingredient:N", sort='-x', title="Ingredient"),
-           tooltip=[alt.Tooltip("Recipe_Count:Q", title="Number of Recipes")]
+           tooltip=[alt.Tooltip("Recipe_Count:Q", title="Number of Recipes")],
+           color=alt.value('#906A51')
        )
        .properties(
            title="Number of Recipes per Ingredient",
            width=140,
            height=450
        )
+       .configure(
+           background='#F5E1C8').configure_view(strokeWidth=0)
    )
 
 

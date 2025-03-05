@@ -51,8 +51,10 @@ def create_ratings_distribution(rating_range=[0, 1], selected_ingredients=None):
 
     chart = alt.Chart(filtered_df).mark_bar().encode(
         alt.X("Rating:Q", bin=alt.Bin(maxbins=10), title="Rating", scale=alt.Scale(domain=rating_range)),
-        alt.Y("count():Q", title="Count"),
-        tooltip=[alt.Tooltip("count():Q", title="Number of Recipes")]
-    ).properties(title="Distribution of Recipe Ratings", width=535, height=110)
+        alt.Y("count():Q", title="Count", axis=alt.Axis(gridColor='#D2A679')),
+        tooltip=[alt.Tooltip("count():Q", title="Number of Recipes")],
+        color=alt.value('#906A51')
+    ).properties(title="Distribution of Recipe Ratings", width=535, height=110
+    ).configure(background='#F5E1C8').configure_view(strokeWidth=0)
 
     return (chart.to_dict())
