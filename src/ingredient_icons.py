@@ -57,7 +57,9 @@ def ingredient_icons():
             "gridColumnEnd": "col6-start",
             "gridRowStart": "row1-start",
             "gridRowEnd": "row3-start",
-            "overflowY": "auto"
+            "overflowY": "auto",
+            "borderRadius": "5px",
+            "border": "2px solid #744F44",
         }
     )
 

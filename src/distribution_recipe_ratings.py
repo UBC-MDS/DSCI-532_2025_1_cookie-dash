@@ -26,7 +26,9 @@ def distribution_recipe_ratings():
             "gridColumnStart": "col1-start",
             "gridColumnEnd": "col6-start",
             "gridRowStart": "row6-start",
-            "gridRowEnd": "row9-end"
+            "gridRowEnd": "row9-end",
+            "borderRadius": "5px",
+            "border": "2px solid #D2A679",
         }
     )
 

@@ -21,7 +21,9 @@ def ingredient_filter():
             "gridColumnEnd": "col6-start",
             "gridRowStart": "row3-start",
             "gridRowEnd": "row6-start",
-            "overflowY": "auto"
+            "overflowY": "auto",
+            "borderRadius": "5px",
+            "border": "2px solid #906A51",
         },
         children=[
             html.Div(

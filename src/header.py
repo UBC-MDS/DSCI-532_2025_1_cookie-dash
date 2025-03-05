@@ -9,5 +9,7 @@ def header():
             "height": "auto", 
             "margin": "1vh 5vw",
             "padding": "20px",
+            "borderRadius": "5px",
+            "border": "2px solid #3E2723",
         }
     )

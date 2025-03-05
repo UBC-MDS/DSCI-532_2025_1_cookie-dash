@@ -31,7 +31,9 @@ def number_of_recipes_per_ingredient():
           "gridRowStart": "row4-start",
           "gridRowEnd": "row9-end",
           # If chart is still bigger than the box, show scroll
-          "overflow": "auto"
+          "overflow": "auto",
+          "borderRadius": "5px",
+          "border": "2px solid #D2A679",
       }
   )
 

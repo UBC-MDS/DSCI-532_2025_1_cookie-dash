@@ -8,7 +8,7 @@ df = pd.read_csv("data/processed/processed_cookie_data.csv")
 
 def average_rating():
     """
-    Display a Plotly Gauge inside a small-sized green background container.
+    Display a Plotly Gauge inside a small-sized container.
     """
     return html.Div(
         className="average_rating",
@@ -35,7 +35,9 @@ def average_rating():
             "gridColumnEnd": "col11-end",
             "gridRowStart": "row1-start",
             "gridRowEnd": "row4-start",
-            "overflow": "hidden"  # Clip slight overflow
+            "overflow": "hidden",  # Clip slight overflow
+            "borderRadius": "5px",
+            "border": "2px solid #D2A679",
         }
     )
 
@@ -127,7 +129,7 @@ def number_of_recipes_per_ingredient():
             "gridColumnStart": "col6-start",
             "gridColumnEnd": "col9-start",
             "gridRowStart": "row4-start",
-            "gridRowEnd": "row9-end"
+            "gridRowEnd": "row9-end",
         }
     )
 

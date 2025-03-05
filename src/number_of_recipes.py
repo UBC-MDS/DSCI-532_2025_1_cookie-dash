@@ -39,12 +39,11 @@ def number_of_recipes():
         ],
         className="number_of_recipes",
         style={
-            "backgroundColor": "#D2A679",
+            "backgroundColor": "#B88C64",
             "color": "#000",
             "padding": "20px",
             "textAlign": "center",
             "borderRadius": "5px",
-            "boxShadow": "2px 2px 5px rgba(0, 0, 0, 0.3)",
             "gridColumnStart": "col6-start",
             "gridColumnEnd": "col8-start",
             "gridRowStart": "row1-start",
