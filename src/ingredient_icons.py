@@ -1,4 +1,4 @@
-from dash import html, callback, Output, Input, ALL, callback_context
+from dash import html, callback, Output, Input, ALL, callback_context, State
 import dash_bootstrap_components as dbc
 import pandas as pd
 import ast
@@ -19,12 +19,21 @@ def ingredient_icons():
     and special taking 1/3 of the available width. Each block has its title on top
     and its subcategory buttons below, all within a flex container.
     """
-    # Hardcode the two categories
     categories = ["basic", "special"]
     # Define custom background colors for each category
     category_backgrounds = {
-        "basic": "#B88C64",   # background for basic
-        "special": "#D2A679"  # different background for special
+        "basic": "#B88C64",
+        "special": "#D2A679"
+    }
+    
+    # Map each subcategory to its corresponding icon URL via the API.
+    icon_urls = {
+        "flour": "https://api.iconify.design/game-icons:flour.svg",
+        "sweetener": "https://api.iconify.design/healthicons:sugar.svg",
+        "fat": "https://api.iconify.design/fluent-emoji-high-contrast:butter.svg",
+        "egg": "https://api.iconify.design/hugeicons:eggs.svg",
+        "other": "https://api.iconify.design/fontisto:test-bottle.svg",
+        "chocolate": "https://api.iconify.design/hugeicons:chocolate.svg"
     }
     
     category_blocks = []
@@ -37,15 +46,17 @@ def ingredient_icons():
         else:
             subcategories = []
         
-        # Create subcategory buttons with the external icon URL
+        # Create subcategory buttons with dynamically set icon URL
         subcat_cards = []
         for subcat in subcategories:
+            # Get the URL for the current subcategory. Defaults to the flour icon if not found.
+            icon_url = icon_urls.get(subcat, icon_urls["flour"])
             button = dbc.Button(
                 children=[
                     html.Img(
-                        src="https://api.iconify.design/game-icons:flour.svg",
+                        src=icon_url,
                         style={"width": "50px", "height": "50px"},
-                        className= "icon"
+                        className="icon"
                     ),
                     # Display the subcategory title below the icon
                     html.Div(
@@ -123,11 +134,6 @@ def ingredient_icons():
         },
         className="ingredient_icons"
     )
-# 3E2723
-# 5D4037
-# B88C64
-# D2A679
-# F5E1C8
 
 @callback(
     Output('selected-subcategory', 'data'),
@@ -140,3 +146,11 @@ def update_selected_subcategory(n_clicks_list):
     triggered_id_str = ctx.triggered[0]['prop_id'].split('.')[0]
     triggered_id = ast.literal_eval(triggered_id_str)
     return triggered_id['index']
+
+@callback(
+    Output({'type': 'subcategory-button', 'index': ALL}, 'active'),
+    Input('selected-subcategory', 'data'),
+    State({'type': 'subcategory-button', 'index': ALL}, 'id')
+)
+def update_active_buttons(selected_subcat, ids):
+    return [id_dict['index'] == selected_subcat for id_dict in ids]
