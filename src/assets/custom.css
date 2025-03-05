@@ -1,0 +1,38 @@
+.btn-primary {
+    /* Normal state */
+    --bs-btn-color: #333333;            /* Text and icon color */
+    --bs-btn-bg: #F5E1C8;               /* Background color */
+    --bs-btn-border-color: #F5E1C8;
+    
+    /* Hover state */
+    --bs-btn-hover-color: #fff;          /* Text and icon color */
+    --bs-btn-hover-bg: #5D4037;          /* Background color */
+    --bs-btn-hover-border-color: #5D4037;
+    
+    /* Focus shadow (using hover background's RGB values: 5D4037 -> 93,64,55) */
+    --bs-btn-focus-shadow-rgb: 93, 64, 55;
+    
+    /* Active/Selected state */
+    --bs-btn-active-color: #fff;         /* Text and icon color */
+    --bs-btn-active-bg: #3E2723;         /* Background color */
+    --bs-btn-active-border-color: #3E2723;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    
+    /* Disabled state (using same as normal) */
+    --bs-btn-disabled-color: #333333;
+    --bs-btn-disabled-bg: #F5E1C8;
+    --bs-btn-disabled-border-color: #F5E1C8;
+}
+
+/* Normal state: approximate a dark gray (#333333) */
+.btn-primary .icon {
+    /* These filter values are approximate – you may need to tweak them */
+    filter: brightness(0) saturate(100%) invert(20%) sepia(0) contrast(90%);
+}
+
+/* Hover, focus, and active states: change the icon to white */
+.btn-primary:hover .icon,
+.btn-primary:focus .icon,
+.btn-primary:active .icon {
+    filter: brightness(0) saturate(100%) invert(100%);
+}

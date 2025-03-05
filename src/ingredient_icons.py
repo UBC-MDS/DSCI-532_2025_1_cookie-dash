@@ -44,13 +44,21 @@ def ingredient_icons():
                 children=[
                     html.Img(
                         src="https://api.iconify.design/game-icons:flour.svg",
-                        style={"width": "50px", "height": "50px"}
+                        style={"width": "50px", "height": "50px"},
+                        className= "icon"
                     ),
                     # Display the subcategory title below the icon
-                    html.Div(subcat, style={"marginTop": "5px", "fontWeight": "bold"})
+                    html.Div(
+                        subcat, 
+                        style={
+                            "marginTop": "5px", 
+                            "fontWeight": "bold"
+                        }
+                    )
                 ],
                 id={"type": "subcategory-button", "index": subcat},
                 n_clicks=0,
+                color="primary",
                 style={
                     "display": "flex",
                     "flexDirection": "column",
