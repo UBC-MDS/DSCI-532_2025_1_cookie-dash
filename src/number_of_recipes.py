@@ -39,7 +39,7 @@ def number_of_recipes():
         ],
         className="number_of_recipes",
         style={
-            "backgroundColor": "#90ee90",
+            "backgroundColor": "#D2A679",
             "color": "#000",
             "padding": "20px",
             "textAlign": "center",

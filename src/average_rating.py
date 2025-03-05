@@ -28,7 +28,7 @@ def average_rating():
             "flexDirection": "column",
             "alignItems": "center",
             "justifyContent": "flex-start",
-            "backgroundColor": "#006400",
+            "backgroundColor": "#D2A679",
             "color": "#fff",
             "padding": "10px",
             "gridColumnStart": "col8-start",
@@ -89,7 +89,8 @@ def update_gauge_chart(_, rating_range=[0, 1], selected_ingredients=None):
                     "value": avg_rating
                 },
                 "borderwidth": 0,
-                "bordercolor": "#006400"
+                "bordercolor": "#D2A679",
+                
             }
         )
     )
@@ -100,7 +101,7 @@ def update_gauge_chart(_, rating_range=[0, 1], selected_ingredients=None):
         width=220,      # Same as dcc.Graph style
         height=180,     # Same as dcc.Graph style
         margin=dict(l=5, r=5, t=35, b=5),
-        paper_bgcolor="#006400",  # Match outer container
+        paper_bgcolor="#D2A679",  # Match outer container
         font=dict(color="#fff")
     )
 
