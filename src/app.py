@@ -48,13 +48,16 @@ app.layout = html.Div(
                         ),
                         "height": "85vh",
                         "gap": "1vw",
-                        "margin": "0 5vw"
+                        "margin": "0 5vw",
                     }
                 )
             ]
         ),
         footer()
-    ]
+    ],
+    style={
+        "backgroundColor": "#F5E1C8",
+    }
 )
 
 if __name__ == '__main__':
