@@ -1,7 +1,5 @@
-from dash import html, callback, Output, Input, State, ALL
-from dash import callback_context as ctx
+from dash import html, callback, Output, Input, ALL, callback_context
 import dash_bootstrap_components as dbc
-import dash
 import pandas as pd
 import ast
 
@@ -22,13 +20,11 @@ def ingredient_icons():
     """
     # Get all unique categories
     categories = df_recipes["category"].dropna().unique()
-
     all_components = []
     for cat in categories:
         # Filter the DataFrame for this category, gather subcategories
         df_cat = df_recipes[df_recipes["category"] == cat]
         subcategories = df_cat["subcategory"].dropna().unique()
-
         # Create a row of cards for each subcategory
         subcat_cards = []
         for subcat in subcategories:
@@ -44,7 +40,6 @@ def ingredient_icons():
                 style={"margin": "5px", "width": "150px"}
             )
             subcat_cards.append(card)
-
         # Add the Category title (H3) and the row of subcategory cards
         all_components.append(html.H3(cat, style={"marginTop": "15px"}))
         all_components.append(
@@ -71,16 +66,9 @@ def ingredient_icons():
     Input({'type': 'subcategory-button', 'index': ALL}, 'n_clicks')
 )
 def update_selected_subcategory(n_clicks_list):
-    # `n_clicks_list` will be the list of click counts from all matched subcategory-buttons
-    ctx = dash.callback_context
-
-    # If no button is clicked, return all unique ingredients
+    ctx = callback_context
     if not ctx.triggered or sum(n_clicks_list) == 0:
-        return df_recipes["Ingredient"].dropna().unique().tolist()    
-    # If no triggers, prevent update
-    #if not ctx.triggered:
-    #    raise dash.exceptions.PreventUpdate
-    
+        return df_recipes["Ingredient"].dropna().unique().tolist()
     triggered_id_str = ctx.triggered[0]['prop_id'].split('.')[0]
     triggered_id = ast.literal_eval(triggered_id_str)
 
