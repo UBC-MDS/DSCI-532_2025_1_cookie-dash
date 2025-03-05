@@ -71,10 +71,7 @@ def ingredient_icons():
     Input({'type': 'subcategory-button', 'index': ALL}, 'n_clicks')
 )
 def update_selected_subcategory(n_clicks_list):
-    # `n_clicks_list` will be the list of click counts from all matched subcategory-buttons
     ctx = dash.callback_context
-
-    # If no button is clicked, return all unique ingredients
     if not ctx.triggered or sum(n_clicks_list) == 0:
         return df_recipes["Ingredient"].dropna().unique().tolist()    
     # If no triggers, prevent update
