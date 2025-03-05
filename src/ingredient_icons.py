@@ -50,7 +50,7 @@ def ingredient_icons():
         children=all_components,
         className="ingredient_icons",
         style={
-            "backgroundColor": "#696969",
+            "backgroundColor": "#744F44",
             "color": "#fff",
             "padding": "20px",
             "gridColumnStart": "col1-start",
