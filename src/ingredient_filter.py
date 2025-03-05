@@ -14,7 +14,7 @@ def ingredient_filter():
     return html.Div(
         id="ingredient-filter-div",
         style={
-            "backgroundColor": "#B88C64",
+            "backgroundColor": "#906A51",
             "color": "#000",
             "padding": "20px",
             "gridColumnStart": "col1-start",

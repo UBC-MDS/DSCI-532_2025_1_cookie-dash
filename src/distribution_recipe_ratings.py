@@ -20,7 +20,7 @@ def distribution_recipe_ratings():
             )
         ],
         style={
-            "backgroundColor": "#8B0000",
+            "backgroundColor": "#D2A679",
             "color": "#fff",
             "padding": "10px",
             "gridColumnStart": "col1-start",

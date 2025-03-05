@@ -22,7 +22,7 @@ def number_of_recipes_per_ingredient():
           ),
       ],
       style={
-          "backgroundColor": "#00008b",
+          "backgroundColor": "#D2A679",
           "color": "#fff",
           "padding": "10px",
           # Place this in the grid area you want:
