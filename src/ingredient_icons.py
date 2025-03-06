@@ -22,7 +22,7 @@ def ingredient_icons():
     categories = ["basic", "special"]
     # Define custom background colors for each category
     category_backgrounds = {
-        "basic": "#B88C64",
+        "basic": "#D2A679",
         "special": "#D2A679"
     }
     
@@ -123,7 +123,7 @@ def ingredient_icons():
         children=category_blocks,
         style={
             "backgroundColor": "#744F44",
-            "color": "#fff",
+            "color": "#000",
             "padding": "20px",
             "display": "flex",
             "flexDirection": "row",

@@ -16,7 +16,7 @@ def recipes_and_complexity():
     """
     return html.Div(
         [
-            html.Div("Recipes & Complexity", style={"fontSize": 17, "textAlign": "center", "color": "#fff"}),
+            html.Div("Recipes & Complexity", style={"fontSize": 17, "textAlign": "center"}),
 
             # Container for recipe list
             html.Ul(
@@ -25,9 +25,7 @@ def recipes_and_complexity():
                 "padding": "10px",
                 "maxHeight": "320px",
                 "overflowY": "auto",
-                "border": "1px solid #000",
-                "borderRadius": "5px",
-                "backgroundColor": "#fff",
+                "backgroundColor": "#F5E1C8",
                 "textAlign": "left",
                 "fontSize": "14px"
             }),
