@@ -16,7 +16,8 @@ def distribution_recipe_ratings():
                 max=1,
                 value=[0, 1],
                 step=0.1,
-                marks={i: {'label': str(i), 'style': {'color': 'white'}} for i in [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]},
+                marks={i: {'label': str(i), 'style': {'color': 'black'}} for i in [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]},
+                className="rating-slider"
             )
         ],
         style={
