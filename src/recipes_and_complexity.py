@@ -1,4 +1,5 @@
-from dash import html, callback, Output, Input
+from dash import dcc, html, callback, Output, Input
+import dash_bootstrap_components as dbc  # For tooltip support
 import pandas as pd
 
 # Load processed data
@@ -6,8 +7,14 @@ csv_path = "data/processed/processed_cookie_data.csv"
 
 try:
     df_recipes = pd.read_csv(csv_path)
+
+    # Ensure Complexity_Score exists
+    if "Complexity_Score" not in df_recipes.columns:
+        df_recipes["Complexity_Score"] = 0  # Default value if missing
+
+    df_recipes["Complexity_Score"] = df_recipes["Complexity_Score"].fillna(0)  # Replace NaN with 0
 except FileNotFoundError:
-    df_recipes = pd.DataFrame(columns=["Recipe_Index", "Complexity_Score", "Rating", "Ingredient"])  # Empty DataFrame if missing
+    df_recipes = pd.DataFrame(columns=["Recipe_Index", "Ingredient", "Text", "Rating", "Complexity_Score"])  # Ensure correct columns
 
 
 def recipes_and_complexity():
@@ -18,27 +25,34 @@ def recipes_and_complexity():
         [
             html.Div("Recipes & Complexity", style={"fontSize": 17, "textAlign": "center", "color": "#fff"}),
 
+            # Display count of recipes
+            html.P(id="recipe-total", children="Total Recipes: 0",
+                   style={"textAlign": "center", "color": "#fff", "marginBottom": "10px"}),
+
             # Container for recipe list
             html.Ul(
-                id="recipe-list", style={
-                "listStyleType": "none",
-                "padding": "10px",
-                "maxHeight": "320px",
-                "overflowY": "auto",
-                "border": "1px solid #000",
-                "borderRadius": "5px",
-                "backgroundColor": "#fff",
-                "textAlign": "left",
-                "fontSize": "14px"
-            }),
+                id="recipe-list",
+                style={
+                    "listStyleType": "none",
+                    "padding": "10px",
+                    "maxHeight": "320px",
+                    "overflowY": "auto",
+                    "border": "1px solid #B88C64",
+                    "borderRadius": "5px",
+                    "backgroundColor": "#B88C64",
+                    "textAlign": "left",
+                    "fontSize": "14px",
+                    "color": "#fff"
+                }
+            ),
         ],
         className="recipes_and_complexity",
         style={
-            "backgroundColor": "#32cd32",
-            "color": "#000",
+            "backgroundColor": "#B88C64",
+            "color": "#fff",
             "padding": "20px",
             "borderRadius": "5px",
-            "border": "2px solid #228B22",
+            "border": "2px solid #B88C64",
             "boxShadow": "3px 3px 5px rgba(0, 0, 0, 0.3)",
             "gridColumnStart": "col9-start",
             "gridColumnEnd": "col11-end",
@@ -49,24 +63,14 @@ def recipes_and_complexity():
 
 
 @callback(
-    Output("recipe-list", "children"),
-    Input("rating-range", "value"),
-    Input("ingredient-checklist", "value"),
+    [Output("recipe-list", "children"),
+     Output("recipe-total", "children")],
+    [Input("rating-range", "value"),
+     Input("ingredient-checklist", "value")]
 )
 def update_recipe_list(rating_range=[0, 1], selected_ingredients=None): 
     """
     Updates the displayed list of recipes based on selected ingredients and rating range.
-
-    Parameters:
-    -----------
-    selected_ingredients : list
-        List of selected ingredients from the dropdown.
-    selected_rating_range : list
-        A list containing the min and max rating scores selected.
-
-    Returns:
-    --------
-    list of html.Li elements displaying filtered recipes.
     """
     filtered_df = df_recipes.copy()
 
@@ -80,15 +84,50 @@ def update_recipe_list(rating_range=[0, 1], selected_ingredients=None):
     if selected_ingredients:
         filtered_df = filtered_df[filtered_df["Ingredient"].isin(selected_ingredients)]
 
+    recipe_count_text = f"Total Recipes: {filtered_df['Recipe_Index'].nunique()}"
+
     # If no recipes match, show message
     if filtered_df.empty:
-        return [html.P("No recipes match the selected criteria.", style={"color": "red", "textAlign": "center"})]
+        return [html.P("No recipes match the selected criteria.", style={"color": "red", "textAlign": "center"})], recipe_count_text
 
-    # Display filtered recipes with complexity scores
-    return [
-        html.Li(
-            f"{row['Recipe_Index']}: {row['Complexity_Score']:.2f}",
-            style={"padding": "5px", "borderBottom": "1px solid #ccc"}
+    # **Group by Recipe_Index and Complexity_Score, concatenate ingredient descriptions**
+    grouped_recipes = (
+        filtered_df.groupby(["Recipe_Index", "Complexity_Score"])["Text"]
+        .apply(lambda texts: "\n".join(texts))  # Use \n instead of <br> to avoid HTML issues
+        .reset_index()
+    )
+
+    # Display filtered recipes with tooltips for full ingredient descriptions
+    recipe_list = []
+    for _, row in grouped_recipes.iterrows():
+        recipe_id = f"recipe-{row['Recipe_Index']}"  # Unique ID for each list item
+
+        # Create tooltip text with all ingredients
+        tooltip_text = f"Ingredients:\n{row['Text']}"
+
+        # Create list item with Recipe Index and Complexity Score
+        recipe_list.append(
+            html.Li(
+                f"{row['Recipe_Index']}: {row['Complexity_Score']:.2f}",  # Show Recipe ID + Complexity Score
+                id=recipe_id,  # Set ID for tooltip reference
+                style={
+                    "padding": "5px",
+                    "borderBottom": "1px solid #fff",
+                    "backgroundColor": "#B88C64",
+                    "color": "#fff",
+                    "cursor": "pointer"
+                }
+            )
         )
-        for _, row in filtered_df.iterrows()
-    ]
+
+        # Add tooltip with **ALL ingredients**
+        recipe_list.append(
+            dbc.Tooltip(
+                tooltip_text,  # Tooltip contains ingredient list
+                target=recipe_id,
+                placement="right",
+                style={"backgroundColor": "#fff", "color": "#000", "maxWidth": "300px", "whiteSpace": "pre-wrap"}  # pre-wrap ensures new lines are visible
+            )
+        )
+
+    return recipe_list, recipe_count_text
