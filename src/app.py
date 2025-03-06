@@ -11,9 +11,16 @@ from .number_of_recipes import number_of_recipes
 from .average_rating import average_rating
 from .number_of_recipes_per_ingredient import number_of_recipes_per_ingredient
 from .recipes_and_complexity import recipes_and_complexity, update_recipe_list
+from os import path as os_path
 
-# Initialize the Dash app with Bootstrap theme
-app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
+PREFIX = '/'
+
+app = Dash(
+    __name__,
+    routes_pathname_prefix=PREFIX,
+    requests_pathname_prefix=PREFIX,
+    external_stylesheets=[dbc.themes.BOOTSTRAP]
+)
 
 server = app.server
 
