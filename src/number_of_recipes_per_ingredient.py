@@ -40,7 +40,7 @@ def number_of_recipes_per_ingredient():
                     "flexWrap": "wrap",  
                     "justifyContent": "center",
                     "alignItems": "center",
-                    "fontSize": "0.5em",  
+                    "fontSize": "0.4em",  
                     "lineHeight": "1.2em",
                     "gap": "5px",
                     "textAlign": "center",
