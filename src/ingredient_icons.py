@@ -22,7 +22,7 @@ def ingredient_icons():
     categories = ["basic", "special"]
     # Define custom background colors for each category
     category_backgrounds = {
-        "basic": "#B88C64",
+        "basic": "#D2A679",
         "special": "#D2A679"
     }
     
@@ -122,6 +122,9 @@ def ingredient_icons():
     return html.Div(
         children=category_blocks,
         style={
+            "backgroundColor": "#744F44",
+            "color": "#000",
+            "padding": "20px",
             "display": "flex",
             "flexDirection": "row",
             "justifyContent": "space-around",
@@ -130,7 +133,9 @@ def ingredient_icons():
             "gridColumnEnd": "col6-start",
             "gridRowStart": "row1-start",
             "gridRowEnd": "row3-start",
-            "overflowY": "auto"
+            "overflowY": "auto",
+            "borderRadius": "5px",
+            "border": "2px solid #744F44",
         },
         className="ingredient_icons"
     )

@@ -23,7 +23,7 @@ def recipes_and_complexity():
     """
     return html.Div(
         [
-            html.Div("Recipes & Complexity", style={"fontSize": 17, "textAlign": "center", "color": "#fff"}),
+            html.Div("Recipes & Complexity", style={"fontSize": 17, "textAlign": "center"}),
 
             # Display count of recipes
             html.P(id="recipe-total", children="Total Recipes: 0",
@@ -31,29 +31,23 @@ def recipes_and_complexity():
 
             # Container for recipe list
             html.Ul(
-                id="recipe-list",
-                style={
-                    "listStyleType": "none",
-                    "padding": "10px",
-                    "maxHeight": "320px",
-                    "overflowY": "auto",
-                    "border": "1px solid #B88C64",
-                    "borderRadius": "5px",
-                    "backgroundColor": "#B88C64",
-                    "textAlign": "left",
-                    "fontSize": "14px",
-                    "color": "#fff"
-                }
-            ),
+                id="recipe-list", style={
+                "listStyleType": "none",
+                "padding": "10px",
+                "maxHeight": "320px",
+                "overflowY": "auto",
+                "backgroundColor": "#F5E1C8",
+                "textAlign": "left",
+                "fontSize": "14px"
+            }),
         ],
         className="recipes_and_complexity",
         style={
             "backgroundColor": "#B88C64",
-            "color": "#fff",
+            "color": "#000",
             "padding": "20px",
             "borderRadius": "5px",
             "border": "2px solid #B88C64",
-            "boxShadow": "3px 3px 5px rgba(0, 0, 0, 0.3)",
             "gridColumnStart": "col9-start",
             "gridColumnEnd": "col11-end",
             "gridRowStart": "row4-start",

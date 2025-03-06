@@ -16,17 +16,20 @@ def distribution_recipe_ratings():
                 max=1,
                 value=[0, 1],
                 step=0.1,
-                marks={i: {'label': str(i), 'style': {'color': 'white'}} for i in [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]},
+                marks={i: {'label': str(i), 'style': {'color': 'black'}} for i in [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]},
+                className="rating-slider"
             )
         ],
         style={
-            "backgroundColor": "#8B0000",
+            "backgroundColor": "#D2A679",
             "color": "#fff",
             "padding": "10px",
             "gridColumnStart": "col1-start",
             "gridColumnEnd": "col6-start",
             "gridRowStart": "row6-start",
-            "gridRowEnd": "row9-end"
+            "gridRowEnd": "row9-end",
+            "borderRadius": "5px",
+            "border": "2px solid #D2A679",
         }
     )
 
@@ -48,9 +51,18 @@ def create_ratings_distribution(rating_range=[0, 1], selected_ingredients=None):
 
 
     chart = alt.Chart(filtered_df).mark_bar().encode(
-        alt.X("Rating:Q", bin=alt.Bin(maxbins=10), title="Rating", scale=alt.Scale(domain=rating_range)),
-        alt.Y("count():Q", title="Count"),
-        tooltip=[alt.Tooltip("count():Q", title="Number of Recipes")]
-    ).properties(title="Distribution of Recipe Ratings", width=535, height=110)
+        alt.X("Rating:Q", bin=alt.Bin(maxbins=10),
+              title="Rating",
+              scale=alt.Scale(domain=rating_range),
+              axis=alt.Axis(domainColor="#3E2723", tickColor='#3E2723')
+              ),
+        alt.Y("count():Q",
+              title="Count",
+              axis=alt.Axis(gridColor='#D2A679', domainColor="#3E2723", tickColor='#3E2723')
+              ),
+        tooltip=[alt.Tooltip("count():Q", title="Number of Recipes")],
+        color=alt.value('#906A51')
+    ).properties(title="Distribution of Recipe Ratings", width=535, height=110
+    ).configure(background='#F5E1C8').configure_view(strokeWidth=0)
 
     return (chart.to_dict())

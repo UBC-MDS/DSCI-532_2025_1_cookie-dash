@@ -8,7 +8,7 @@ df = pd.read_csv("data/processed/processed_cookie_data.csv")
 
 def average_rating():
     """
-    Display a Plotly Gauge inside a small-sized green background container.
+    Display a Plotly Gauge inside a small-sized container.
     """
     return html.Div(
         className="average_rating",
@@ -28,14 +28,16 @@ def average_rating():
             "flexDirection": "column",
             "alignItems": "center",
             "justifyContent": "flex-start",
-            "backgroundColor": "#006400",
+            "backgroundColor": "#D2A679",
             "color": "#fff",
             "padding": "10px",
             "gridColumnStart": "col8-start",
             "gridColumnEnd": "col11-end",
             "gridRowStart": "row1-start",
             "gridRowEnd": "row4-start",
-            "overflow": "hidden"  # Clip slight overflow
+            "overflow": "hidden",  # Clip slight overflow
+            "borderRadius": "5px",
+            "border": "2px solid #D2A679",
         }
     )
 
@@ -68,7 +70,7 @@ def update_gauge_chart(_, rating_range=[0, 1], selected_ingredients=None):
         go.Indicator(
             mode="gauge+number",
             value=round(avg_rating, 2),
-            title={"text": f"Average Rating: {avg_rating:.2f}", "font": {"size": 16, "color": "#fff"}},
+            title={"text": f"Average Rating: {avg_rating:.2f}", "font": {"size": 16}},
             domain={"x": [0, 1], "y": [0, 1]},   # Fill the entire chart area (full circle)
             gauge={
                 "axis": {
@@ -76,20 +78,21 @@ def update_gauge_chart(_, rating_range=[0, 1], selected_ingredients=None):
                     "tickmode": "linear",
                     "tick0": 0,
                     "dtick": 0.2,
-                    "tickfont": {"color": "#fff", "size": 12}
+                    "tickfont": {"color": "#000", "size": 12}
                 },
-                "bar": {"color": "red", "thickness": 0.3},  # Ensure the dial color is distinct
+                "bar": {"color": "#3E2723", "thickness": 0.3},  # Ensure the dial color is distinct
                 "steps": [
-                    {"range": [0, avg_rating], "color": "lightblue"},  # Color up to average rating
-                    {"range": [avg_rating, 1], "color": "lightgray"},  # Remaining range
+                    {"range": [0, avg_rating], "color": "#906A51"},  # Color up to average rating
+                    {"range": [avg_rating, 1], "color": "#F5E1C8"},  # Remaining range
                 ],
                 "threshold": {
-                    "line": {"color": "red", "width": 4},
+                    "line": {"color": "#3E2723", "width": 4},
                     "thickness": 0.75,  # Adjusted for a clear marker
                     "value": avg_rating
                 },
                 "borderwidth": 0,
-                "bordercolor": "#006400"
+                "bordercolor": "#D2A679",
+                
             }
         )
     )
@@ -100,8 +103,8 @@ def update_gauge_chart(_, rating_range=[0, 1], selected_ingredients=None):
         width=220,      # Same as dcc.Graph style
         height=180,     # Same as dcc.Graph style
         margin=dict(l=5, r=5, t=35, b=5),
-        paper_bgcolor="#006400",  # Match outer container
-        font=dict(color="#fff")
+        paper_bgcolor="#D2A679",  # Match outer container
+        font=dict(color="#000")
     )
 
     return fig
@@ -126,7 +129,7 @@ def number_of_recipes_per_ingredient():
             "gridColumnStart": "col6-start",
             "gridColumnEnd": "col9-start",
             "gridRowStart": "row4-start",
-            "gridRowEnd": "row9-end"
+            "gridRowEnd": "row9-end",
         }
     )
 

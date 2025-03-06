@@ -32,3 +32,15 @@
 .btn-primary.active .icon {
     filter: brightness(0) saturate(100%) invert(100%);
 }
+
+.rating-slider .rc-slider-track {
+    background-color: #906A51 !important; /* Change the selected range color */
+}
+
+.rating-slider .rc-slider-handle {
+    border-color: #906A51 !important;  /* Change slider handle color */
+}
+
+.rating-slider .rc-slider-dot-active {
+    border-color: #906A51 !important;  /* Change the color of intermediate points (dots on the slider) */
+}

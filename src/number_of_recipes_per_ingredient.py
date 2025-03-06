@@ -18,7 +18,7 @@ def number_of_recipes_per_ingredient():
                 dvc.Vega(
                     id='ingredient_bar_chart',
                     spec={},
-                    style={"width": "100%", "height": "100%"}
+                    style={"width": "100%", "height": "100%"},
                 ),
                 style={
                     "flex": "0 0 auto",  
@@ -33,7 +33,7 @@ def number_of_recipes_per_ingredient():
                 style={
                     "flex": "1",  
                     "padding": "5px",
-                    "backgroundColor": "#ffffff",
+                    "backgroundColor": "#F5E1C8",
                     "borderRadius": "5px",
                     "color": "#000",
                     "display": "flex",
@@ -50,7 +50,7 @@ def number_of_recipes_per_ingredient():
             )
         ],
         style={
-            "backgroundColor": "#00008b",
+            "backgroundColor": "#D2A679",
             "color": "#fff",
             "padding": "10px",
             "gridColumnStart": "col6-start",
@@ -60,7 +60,9 @@ def number_of_recipes_per_ingredient():
             "display": "flex",
             "flexDirection": "column",
             "height": "100%",
-            "boxSizing": "border-box"
+            "boxSizing": "border-box",
+            "borderRadius": "5px",
+            "border": "2px solid #D2A679",
         }
     )
 
@@ -102,9 +104,15 @@ def create_ingredient_distribution(rating_range=[0, 1], selected_ingredients=Non
         alt.Chart(df_top_ingredients)
         .mark_bar()
         .encode(
-            alt.X("Recipe_Count:Q", title="Number of Recipes"),
-            alt.Y("Ingredient:N", sort='-x', title="Ingredient"),
-            tooltip=[alt.Tooltip("Recipe_Count:Q", title="Number of Recipes")]
+            alt.X("Recipe_Count:Q",
+                  title="Number of Recipes",
+                  axis=alt.Axis(gridColor='#D2A679', domainColor="#3E2723", tickColor='#3E2723')),
+            alt.Y("Ingredient:N",
+                  sort='-x',
+                  title="Ingredient",
+                  axis=alt.Axis(domainColor="#3E2723", tickColor='#3E2723')),
+            tooltip=[alt.Tooltip("Recipe_Count:Q", title="Number of Recipes")],
+            color=alt.value('#906A51')
         )
         .properties(
             title="Top 10 Ingredients by Number of Recipes",
@@ -116,6 +124,8 @@ def create_ingredient_distribution(rating_range=[0, 1], selected_ingredients=Non
             labelLimit=0,
             labelFontSize=10,
             titleFontSize=12
+        ).configure(
+        background='#F5E1C8'
         )
     )
 

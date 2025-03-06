@@ -16,15 +16,16 @@ def ingredient_filter():
     return html.Div(
         id="ingredient-filter-div",
         style={
-            "backgroundColor": "#5D4037",
-            "color": "#fff",
+            "backgroundColor": "#906A51",
+            "color": "#000",
             "padding": "20px",
             "gridColumnStart": "col1-start",
             "gridColumnEnd": "col6-start",
             "gridRowStart": "row3-start",
             "gridRowEnd": "row6-start",
             "borderRadius": "5px",
-            "overflowY": "auto"
+            "overflowY": "auto",
+            "border": "2px solid #906A51",
         },
         children=[
             html.Div(
