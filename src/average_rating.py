@@ -13,19 +13,20 @@ def average_rating():
     return html.Div(
         className="average_rating",
         children=[
-            "", 
+            html.H6("Average Rating:", style={'color':'black', "textAlign": "center"}),
             dcc.Graph(
                 id="rating_gauge",
                 config={"displayModeBar": False},  # Hide toolbar
                 style={
-                    "width": "220px",   # Fixed chart width
-                    "height": "180px"   # Fixed chart height
+                    "width": "80%",   # Dynamic chart width
+                    "height": "75%"   # Dynamic chart height
                 }
             )
         ],
         style={
             "display": "flex",
             "flexDirection": "column",
+            # "justifyContent": "center",
             "alignItems": "center",
             "justifyContent": "flex-start",
             "backgroundColor": "#D2A679",
@@ -70,7 +71,7 @@ def update_gauge_chart(_, rating_range=[0, 1], selected_ingredients=None):
         go.Indicator(
             mode="gauge+number",
             value=round(avg_rating, 2),
-            title={"text": f"Average Rating: {avg_rating:.2f}", "font": {"size": 16}},
+            # title={"text": f"Average Rating: {avg_rating:.2f}", "font": {"size": 16}},
             domain={"x": [0, 1], "y": [0, 1]},   # Fill the entire chart area (full circle)
             gauge={
                 "axis": {
@@ -99,9 +100,7 @@ def update_gauge_chart(_, rating_range=[0, 1], selected_ingredients=None):
 
     # Adjust layout to fit the small container
     fig.update_layout(
-        autosize=False,
-        width=220,      # Same as dcc.Graph style
-        height=180,     # Same as dcc.Graph style
+        autosize=True, 
         margin=dict(l=5, r=5, t=35, b=5),
         paper_bgcolor="#D2A679",  # Match outer container
         font=dict(color="#000")
