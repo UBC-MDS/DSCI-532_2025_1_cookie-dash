@@ -13,6 +13,9 @@ def number_of_recipes_per_ingredient():
     return html.Div(
         className="number_of_recipes_per_ingredient",
         children=[
+            # Title
+            html.H6("Top 10 Ingredients by Number of Recipes", style={'color':'black', "textAlign": "center"}),
+
             # Responsive Bar Chart
             html.Div(
                 dvc.Vega(
@@ -115,7 +118,6 @@ def create_ingredient_distribution(rating_range=[0, 1], selected_ingredients=Non
             color=alt.value('#906A51')
         )
         .properties(
-            title="Top 10 Ingredients by Number of Recipes",
             width="container",
             height=alt.Step(30)  
         )

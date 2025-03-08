@@ -9,7 +9,10 @@ def distribution_recipe_ratings():
     return html.Div(
         className="distribution_recipe_ratings",
         children=[
-            dvc.Vega(id='rating_histogram', spec={}),
+            html.H6("Distribution of Recipe Ratings", style={'color':'black', "textAlign": "center"}),
+            dvc.Vega(id='rating_histogram',
+                     spec={},
+                     style={"width": "100%", "height": "70%"}),
             dcc.RangeSlider(
                 id='rating-range',
                 min=0,
@@ -17,7 +20,7 @@ def distribution_recipe_ratings():
                 value=[0, 1],
                 step=0.1,
                 marks={i: {'label': str(i), 'style': {'color': 'black'}} for i in [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]},
-                className="rating-slider"
+                className="rating-slider",
             )
         ],
         style={
@@ -30,6 +33,8 @@ def distribution_recipe_ratings():
             "gridRowEnd": "row9-end",
             "borderRadius": "5px",
             "border": "2px solid #D2A679",
+            # "justifyContent": "center",  # Centers horizontally
+            # "alignItems": "center",  # Centers vertically
         }
     )
 
@@ -62,7 +67,7 @@ def create_ratings_distribution(rating_range=[0, 1], selected_ingredients=None):
               ),
         tooltip=[alt.Tooltip("count():Q", title="Number of Recipes")],
         color=alt.value('#906A51')
-    ).properties(title="Distribution of Recipe Ratings", width=535, height=110
+    ).properties(width="container", height = "container"
     ).configure(background='#F5E1C8').configure_view(strokeWidth=0)
 
     return (chart.to_dict())
