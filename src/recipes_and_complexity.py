@@ -23,18 +23,19 @@ def recipes_and_complexity():
     """
     return html.Div(
         [
-            html.Div("Recipes & Complexity", style={"fontSize": 17, "textAlign": "center"}),
+            html.H6("Recipes & Complexity", style={'color':'black', "textAlign": "center"}),
 
             # Display count of recipes
             html.P(id="recipe-total", children="Total Recipes: 0",
-                   style={"textAlign": "center", "color": "#fff", "marginBottom": "10px"}),
+                   style={"textAlign": "center", "color": "#000", "marginBottom": "10px"}),
 
             # Container for recipe list
             html.Ul(
                 id="recipe-list", style={
                 "listStyleType": "none",
                 "padding": "10px",
-                "maxHeight": "320px",
+                #"maxHeight": "320px",
+                "height": "80%", # make height dynamic
                 "overflowY": "auto",
                 "backgroundColor": "#F5E1C8",
                 "textAlign": "left",
@@ -45,7 +46,7 @@ def recipes_and_complexity():
         style={
             "backgroundColor": "#B88C64",
             "color": "#000",
-            "padding": "20px",
+            "padding": "10px",
             "borderRadius": "5px",
             "border": "2px solid #B88C64",
             "gridColumnStart": "col9-start",
@@ -108,7 +109,7 @@ def update_recipe_list(rating_range=[0, 1], selected_ingredients=None):
                     "padding": "5px",
                     "borderBottom": "1px solid #fff",
                     "backgroundColor": "#B88C64",
-                    "color": "#fff",
+                    "color": "black",
                     "cursor": "pointer"
                 }
             )
