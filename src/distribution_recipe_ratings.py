@@ -33,6 +33,8 @@ def distribution_recipe_ratings():
             "gridRowEnd": "row9-end",
             "borderRadius": "5px",
             "border": "2px solid #D2A679",
+            "justifyContent": "center",  # Centers horizontally
+            "alignItems": "center",  # Centers vertically
         }
     )
 
