@@ -121,7 +121,7 @@ def update_recipe_list(rating_range=[0, 1], selected_ingredients=None):
                 tooltip_text,  # Tooltip contains ingredient list
                 target=recipe_id,
                 placement="right",
-                style={"backgroundColor": "#fff", "color": "#000", "maxWidth": "300px", "whiteSpace": "pre-wrap"}  # pre-wrap ensures new lines are visible
+                style={"color": "#000", "maxWidth": "300px", "whiteSpace": "pre-wrap"}  # pre-wrap ensures new lines are visible
             )
         )
 
