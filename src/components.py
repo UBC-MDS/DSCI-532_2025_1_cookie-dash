@@ -300,3 +300,39 @@ def number_of_recipes():
             "gridRowEnd": "row4-start"
         }
     )
+
+def average_rating():
+    """
+    Display a Plotly Gauge inside a small-sized container.
+    """
+    return html.Div(
+        className="average_rating",
+        children=[
+            html.H6("Average Rating:", style={'color':'black', "textAlign": "center"}),
+            dcc.Graph(
+                id="rating_gauge",
+                config={"displayModeBar": False},  # Hide toolbar
+                style={
+                    "width": "80%",   # Dynamic chart width
+                    "height": "75%"   # Dynamic chart height
+                }
+            )
+        ],
+        style={
+            "display": "flex",
+            "flexDirection": "column",
+            # "justifyContent": "center",
+            "alignItems": "center",
+            "justifyContent": "flex-start",
+            "backgroundColor": "#D2A679",
+            "color": "#fff",
+            "padding": "10px",
+            "gridColumnStart": "col8-start",
+            "gridColumnEnd": "col11-end",
+            "gridRowStart": "row1-start",
+            "gridRowEnd": "row4-start",
+            "overflow": "hidden",  # Clip slight overflow
+            "borderRadius": "5px",
+            "border": "2px solid #D2A679",
+        }
+    )
