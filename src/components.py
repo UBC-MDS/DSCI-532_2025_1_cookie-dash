@@ -277,3 +277,26 @@ def distribution_recipe_ratings():
         }
     )
 
+def number_of_recipes():
+    """
+    Displays the number of recipes, updating dynamically based on filters.
+    """
+    return html.Div(
+        id="recipe-count-container",
+        children=[
+            html.H4("Number of Recipes"),
+            html.H2(id="recipe-count", children="0")  # ✅ Updated dynamically
+        ],
+        className="number_of_recipes",
+        style={
+            "backgroundColor": "#B88C64",
+            "color": "#000",
+            "padding": "20px",
+            "textAlign": "center",
+            "borderRadius": "5px",
+            "gridColumnStart": "col6-start",
+            "gridColumnEnd": "col8-start",
+            "gridRowStart": "row1-start",
+            "gridRowEnd": "row4-start"
+        }
+    )
