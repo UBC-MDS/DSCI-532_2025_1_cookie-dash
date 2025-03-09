@@ -336,3 +336,66 @@ def average_rating():
             "border": "2px solid #D2A679",
         }
     )
+
+def number_of_recipes_per_ingredient():
+    """
+    Returns a container with a fully visible bar chart and a compact multi-column list of remaining ingredients.
+    """
+    return html.Div(
+        className="number_of_recipes_per_ingredient",
+        children=[
+            # Title
+            html.H6("Top 10 Ingredients by Number of Recipes", style={'color':'black', "textAlign": "center"}),
+
+            # Responsive Bar Chart
+            html.Div(
+                dvc.Vega(
+                    id='ingredient_bar_chart',
+                    spec={},
+                    style={"width": "100%", "height": "100%"},
+                ),
+                style={
+                    "flex": "0 0 auto",  
+                    "borderBottom": "2px solid white",
+                    "marginBottom": "10px"
+                }
+            ),
+            
+            # Multi-column Compact Remaining Ingredients List 
+            html.Div(
+                id="remaining-ingredients",
+                style={
+                    "flex": "1",  
+                    "padding": "5px",
+                    "backgroundColor": "#F5E1C8",
+                    "borderRadius": "5px",
+                    "color": "#000",
+                    "display": "flex",
+                    "flexWrap": "wrap",  
+                    "justifyContent": "center",
+                    "alignItems": "center",
+                    "fontSize": "0.4em",  
+                    "lineHeight": "1.2em",
+                    "gap": "5px",
+                    "textAlign": "center",
+                    "maxHeight": "100%",  
+                    "overflow": "hidden"
+                }
+            )
+        ],
+        style={
+            "backgroundColor": "#D2A679",
+            "color": "#fff",
+            "padding": "10px",
+            "gridColumnStart": "col6-start",
+            "gridColumnEnd": "col9-start",
+            "gridRowStart": "row4-start",
+            "gridRowEnd": "row9-end",
+            "display": "flex",
+            "flexDirection": "column",
+            "height": "100%",
+            "boxSizing": "border-box",
+            "borderRadius": "5px",
+            "border": "2px solid #D2A679",
+        }
+    )
