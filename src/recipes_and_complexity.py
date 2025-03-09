@@ -87,9 +87,10 @@ def update_recipe_list(rating_range=[0, 1], selected_ingredients=None):
 
     # **Group by Recipe_Index and Complexity_Score, concatenate ingredient descriptions**
     grouped_recipes = (
-        filtered_df.groupby(["Recipe_Index", "Complexity_Score"])["Text"]
-        .apply(lambda texts: "\n".join(texts))  # Use \n instead of <br> to avoid HTML issues
+        filtered_df.groupby(["Recipe_Index", "Complexity_Score"])[["Quantity", "Unit", "Ingredient"]]
+        .apply(lambda df: "\n".join([f"{round(qty, 1)} {unit} {ing}" for qty, unit, ing in zip(df["Quantity"], df["Unit"], df["Ingredient"])]))
         .reset_index()
+        .rename(columns={0: "Formatted_Ingredients"})
     )
 
     # Display filtered recipes with tooltips for full ingredient descriptions
@@ -98,7 +99,7 @@ def update_recipe_list(rating_range=[0, 1], selected_ingredients=None):
         recipe_id = f"recipe-{row['Recipe_Index']}"  # Unique ID for each list item
 
         # Create tooltip text with all ingredients
-        tooltip_text = f"Ingredients:\n{row['Text']}"
+        tooltip_text = f"Ingredients:\n{row['Formatted_Ingredients']}"
 
         # Create list item with Recipe Index and Complexity Score
         recipe_list.append(
