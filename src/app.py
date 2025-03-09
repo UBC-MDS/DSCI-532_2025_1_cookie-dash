@@ -2,8 +2,7 @@ from dash import Dash, html, dcc
 import dash_bootstrap_components as dbc
 
 # Import component functions
-from .header import header
-from .footer import footer
+from .components import header, footer #, ingredient_icons, ingredient_filter, distribution_recipe_ratings# , number_of_recipes, average_rating, number_of_recipes_per_ingredient, recipes_and_complexity
 from .ingredient_icons import ingredient_icons
 from .ingredient_filter import ingredient_filter
 from .distribution_recipe_ratings import distribution_recipe_ratings
