@@ -1,5 +1,6 @@
 from dash import html, dcc
 import dash_bootstrap_components as dbc
+import dash_vega_components as dvc
 
 def header():
     return html.Header(
@@ -241,5 +242,38 @@ def ingredient_filter():
                 ]
             )
         ]
+    )
+
+def distribution_recipe_ratings():
+    return html.Div(
+        className="distribution_recipe_ratings",
+        children=[
+            html.H6("Distribution of Recipe Ratings", style={'color':'black', "textAlign": "center"}),
+            dvc.Vega(id='rating_histogram',
+                     spec={},
+                     style={"width": "100%", "height": "70%"}),
+            dcc.RangeSlider(
+                id='rating-range',
+                min=0,
+                max=1,
+                value=[0, 1],
+                step=0.1,
+                marks={i: {'label': str(i), 'style': {'color': 'black'}} for i in [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]},
+                className="rating-slider",
+            )
+        ],
+        style={
+            "backgroundColor": "#D2A679",
+            "color": "#fff",
+            "padding": "10px",
+            "gridColumnStart": "col1-start",
+            "gridColumnEnd": "col6-start",
+            "gridRowStart": "row6-start",
+            "gridRowEnd": "row9-end",
+            "borderRadius": "5px",
+            "border": "2px solid #D2A679",
+            # "justifyContent": "center",  # Centers horizontally
+            # "alignItems": "center",  # Centers vertically
+        }
     )
 

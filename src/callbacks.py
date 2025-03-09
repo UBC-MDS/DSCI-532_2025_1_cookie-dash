@@ -1,6 +1,8 @@
 from dash import callback, Output, Input, State, callback_context, ALL, html
 import pandas as pd
 import ast
+import altair as alt
+import json
 
 # ingredient icons callbacks
 csv_path = "data/processed/processed_cookie_data.csv"
@@ -103,3 +105,39 @@ def show_selected_ingredients(selected_ingredients):
     if not selected_ingredients:
         return [html.Li("No ingredients selected")]
     return [html.Li(ing) for ing in selected_ingredients]
+
+# distribution recipe ratings callbacks to update x-axis based on slider values
+df = pd.read_csv("data/processed/processed_cookie_data.csv")
+
+@callback(
+    Output("rating_histogram", "spec"),
+    Input("rating-range", "value"),
+    Input("ingredient-checklist", "value"),
+)
+def create_ratings_distribution(rating_range=[0, 1], selected_ingredients=None):
+    filtered_df = df.query('Rating.between(@rating_range[0], @rating_range[1])')
+
+    if selected_ingredients:
+        filtered_df = filtered_df[filtered_df["Ingredient"].isin(selected_ingredients)]
+
+    # group by recipe ID so that there is only one entry per recipe instead of per ingredient in the recipe
+    # the recipe's rating per ingredient should be the same, so "mean" doesn't really do anything
+    filtered_df = filtered_df.groupby("Recipe_Index")['Rating'].mean().reset_index()
+
+
+    chart = alt.Chart(filtered_df).mark_bar().encode(
+        alt.X("Rating:Q", bin=alt.Bin(maxbins=10),
+              title="Rating",
+              scale=alt.Scale(domain=rating_range),
+              axis=alt.Axis(domainColor="#3E2723", tickColor='#3E2723')
+              ),
+        alt.Y("count():Q",
+              title="Count",
+              axis=alt.Axis(gridColor='#D2A679', domainColor="#3E2723", tickColor='#3E2723')
+              ),
+        tooltip=[alt.Tooltip("count():Q", title="Number of Recipes")],
+        color=alt.value('#906A51')
+    ).properties(width="container", height = "container"
+    ).configure(background='#F5E1C8').configure_view(strokeWidth=0)
+
+    return (chart.to_dict())
