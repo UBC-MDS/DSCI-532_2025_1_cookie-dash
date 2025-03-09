@@ -2,9 +2,8 @@ from dash import Dash, html, dcc
 import dash_bootstrap_components as dbc
 
 # Import component functions
-from .components import header, footer, ingredient_icons, ingredient_filter, distribution_recipe_ratings, number_of_recipes, average_rating, number_of_recipes_per_ingredient #, recipes_and_complexity
+from .components import *
 from . import callbacks
-from .recipes_and_complexity import recipes_and_complexity, update_recipe_list
 from os import path as os_path
 
 PREFIX = '/'

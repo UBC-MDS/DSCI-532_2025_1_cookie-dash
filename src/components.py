@@ -399,3 +399,42 @@ def number_of_recipes_per_ingredient():
             "border": "2px solid #D2A679",
         }
     )
+
+def recipes_and_complexity():
+    """
+    Returns a styled container displaying a dynamically filtered recipe list.
+    """
+    return html.Div(
+        [
+            html.H6("Recipes & Complexity", style={'color':'black', "textAlign": "center"}),
+
+            # Display count of recipes
+            html.P(id="recipe-total", children="Total Recipes: 0",
+                   style={"textAlign": "center", "color": "#000", "marginBottom": "10px"}),
+
+            # Container for recipe list
+            html.Ul(
+                id="recipe-list", style={
+                "listStyleType": "none",
+                "padding": "10px",
+                #"maxHeight": "320px",
+                "height": "80%", # make height dynamic
+                "overflowY": "auto",
+                "backgroundColor": "#F5E1C8",
+                "textAlign": "left",
+                "fontSize": "14px"
+            }),
+        ],
+        className="recipes_and_complexity",
+        style={
+            "backgroundColor": "#B88C64",
+            "color": "#000",
+            "padding": "10px",
+            "borderRadius": "5px",
+            "border": "2px solid #B88C64",
+            "gridColumnStart": "col9-start",
+            "gridColumnEnd": "col11-end",
+            "gridRowStart": "row4-start",
+            "gridRowEnd": "row9-end"
+        }
+    )
