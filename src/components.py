@@ -1,4 +1,4 @@
-from dash import html
+from dash import html, dcc
 import dash_bootstrap_components as dbc
 
 def header():
@@ -158,3 +158,88 @@ def ingredient_icons():
         },
         className="ingredient_icons"
     )
+
+def ingredient_filter():
+    return html.Div(
+        id="ingredient-filter-div",
+        style={
+            "backgroundColor": "#906A51",
+            "color": "#000",
+            "padding": "20px",
+            "gridColumnStart": "col1-start",
+            "gridColumnEnd": "col6-start",
+            "gridRowStart": "row3-start",
+            "gridRowEnd": "row6-start",
+            "borderRadius": "5px",
+            "overflowY": "auto",
+            "border": "2px solid #906A51",
+        },
+        children=[
+            html.Div(
+                style={"width": "100%", "display": "flex"},
+                children=[
+                    # Left side: Available Ingredients title with header row and checklist
+                    html.Div(
+                        style={"width": "66%", "paddingRight": "10px"},
+                        children=[
+                            html.Div(
+                                style={
+                                    "display": "flex",
+                                    "justifyContent": "space-between",
+                                    "alignItems": "center"
+                                },
+                                children=[
+                                    html.H4("Available Ingredients", style={"margin": 0}),
+                                    dbc.Button(
+                                        "Deselect All",
+                                        id="deselect-all-button",
+                                        n_clicks=0,
+                                        style={"marginLeft": "10px"}
+                                    )
+                                ]
+                            ),
+                            # Header row for columns
+                            html.Div(
+                                children=[
+                                    html.Span("Ingredient", style={"flex": "1", "textAlign": "left"}),
+                                    html.Span("Popularity Score", style={"minWidth": "50px", "textAlign": "right"})
+                                ],
+                                style={
+                                    "display": "flex",
+                                    "justifyContent": "space-between",
+                                    "alignItems": "center",
+                                    "fontWeight": "bold",
+                                    "padding": "4px 8px",
+                                    "borderBottom": "1px solid #ccc",
+                                    "marginTop": "10px"
+                                }
+                            ),
+                            # Checklist with custom label styling so checkbox and label share the same row.
+                            dcc.Checklist(
+                                id="ingredient-checklist",
+                                options=[],  # options are generated in the callback below
+                                value=[],    # initially no ingredient is selected
+                                labelStyle={
+                                    "display": "flex",
+                                    "justifyContent": "space-between",
+                                    "alignItems": "center",
+                                    "width": "100%",
+                                    "padding": "4px 8px"
+                                },
+                                style={"display": "block", "marginTop": "5px"}
+                            )
+                        ]
+                    ),
+                    # Right side: Selected Ingredients (only names)
+                    html.Div(
+                        style={"width": "34%", "paddingLeft": "10px", "borderLeft": "1px solid #aaa"},
+                        children=[
+                            html.H4("Selected Ingredients"),
+                            html.Ul(id="selected-ingredients-list", children=[])
+                        ]
+                    )
+                ]
+            )
+        ]
+    )
+
