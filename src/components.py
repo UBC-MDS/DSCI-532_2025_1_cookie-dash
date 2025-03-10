@@ -326,7 +326,7 @@ def number_of_recipes_per_ingredient():
                 dvc.Vega(
                     id='ingredient_bar_chart',
                     spec={},
-                    style={"width": "100%", "height": "50%"},
+                    style={"width": "100%", "height": "40%"},
                 ),
                 style={
                     "flex": "0 0 auto",  
@@ -348,7 +348,7 @@ def number_of_recipes_per_ingredient():
                     "flexWrap": "wrap",  
                     "justifyContent": "center",
                     "alignItems": "center",
-                    "fontSize": "0.4em",  
+                    "fontSize": "0.35em",  
                     "lineHeight": "1.2em",
                     "gap": "5px",
                     "textAlign": "center",
