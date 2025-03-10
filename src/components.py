@@ -107,11 +107,9 @@ def ingredient_icons():
         category_block = html.Div(
             children=[
                 # Category title row
-                html.Div(
+                html.H6(
                     cat.capitalize(),
                     style={
-                        "fontWeight": "bold",
-                        "fontSize": "24px",
                         "textAlign": "center"
                     }
                 ),
@@ -144,7 +142,7 @@ def ingredient_icons():
         style={
             "backgroundColor": "#744F44",
             "color": "#000",
-            "padding": "20px",
+            "padding": "5px",
             "display": "flex",
             "flexDirection": "row",
             "justifyContent": "space-around",
@@ -277,30 +275,6 @@ def distribution_recipe_ratings():
         }
     )
 
-def number_of_recipes():
-    """
-    Displays the number of recipes, updating dynamically based on filters.
-    """
-    return html.Div(
-        id="recipe-count-container",
-        children=[
-            html.H4("Number of Recipes"),
-            html.H2(id="recipe-count", children="0")  # ✅ Updated dynamically
-        ],
-        className="number_of_recipes",
-        style={
-            "backgroundColor": "#B88C64",
-            "color": "#000",
-            "padding": "20px",
-            "textAlign": "center",
-            "borderRadius": "5px",
-            "gridColumnStart": "col6-start",
-            "gridColumnEnd": "col8-start",
-            "gridRowStart": "row1-start",
-            "gridRowEnd": "row4-start"
-        }
-    )
-
 def average_rating():
     """
     Display a Plotly Gauge inside a small-sized container.
@@ -326,11 +300,11 @@ def average_rating():
             "justifyContent": "flex-start",
             "backgroundColor": "#D2A679",
             "color": "#fff",
-            "padding": "10px",
-            "gridColumnStart": "col8-start",
-            "gridColumnEnd": "col11-end",
-            "gridRowStart": "row1-start",
-            "gridRowEnd": "row4-start",
+            "padding": "15px",
+            "gridColumnStart": "col6-start",
+            "gridColumnEnd": "col9-start",
+            "gridRowStart": "row6-start",
+            "gridRowEnd": "row9-start",
             "overflow": "hidden",  # Clip slight overflow
             "borderRadius": "5px",
             "border": "2px solid #D2A679",
@@ -352,12 +326,12 @@ def number_of_recipes_per_ingredient():
                 dvc.Vega(
                     id='ingredient_bar_chart',
                     spec={},
-                    style={"width": "100%", "height": "100%"},
+                    style={"width": "100%", "height": "50%"},
                 ),
                 style={
                     "flex": "0 0 auto",  
                     "borderBottom": "2px solid white",
-                    "marginBottom": "10px"
+                    "marginBottom": "2px"
                 }
             ),
             
@@ -389,8 +363,8 @@ def number_of_recipes_per_ingredient():
             "padding": "10px",
             "gridColumnStart": "col6-start",
             "gridColumnEnd": "col9-start",
-            "gridRowStart": "row4-start",
-            "gridRowEnd": "row9-end",
+            "gridRowStart": "row1-start",
+            "gridRowEnd": "row6-start",
             "display": "flex",
             "flexDirection": "column",
             "height": "100%",
@@ -434,7 +408,7 @@ def recipes_and_complexity():
             "border": "2px solid #B88C64",
             "gridColumnStart": "col9-start",
             "gridColumnEnd": "col11-end",
-            "gridRowStart": "row4-start",
+            "gridRowStart": "row1-start",
             "gridRowEnd": "row9-end"
         }
     )

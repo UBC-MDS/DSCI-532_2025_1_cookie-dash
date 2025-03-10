@@ -31,7 +31,6 @@ app.layout = html.Div(
                         ingredient_icons(),
                         ingredient_filter(),
                         distribution_recipe_ratings(),
-                        number_of_recipes(),
                         average_rating(),
                         number_of_recipes_per_ingredient(),
                         recipes_and_complexity()

@@ -144,34 +144,6 @@ def create_ratings_distribution(rating_range=[0, 1], selected_ingredients=None):
 
     return (chart.to_dict())
 
-# number of recipes callback
-try:
-    df_recipes = pd.read_csv(csv_path)
-except FileNotFoundError:
-    # Create empty DataFrame if CSV is missing
-    df_recipes = pd.DataFrame(columns=["Recipe_Index", "Rating", "Ingredient"])
-
-@callback(
-    Output("recipe-count", "children"),
-    Input("rating-range", "value"),
-    Input("ingredient-checklist", "value")  # ✅ Added ingredient selection as an input
-)
-def update_recipe_count(rating_range=[0, 1], selected_ingredients=None):
-    """
-    Updates the displayed count of recipes based on rating range and selected ingredients.
-    """
-    # Filter by rating range
-    filtered_df = df_recipes[df_recipes["Rating"].between(rating_range[0], rating_range[1])]
-
-    # If ingredients are selected, filter by them
-    if selected_ingredients:
-        filtered_df = filtered_df[filtered_df["Ingredient"].isin(selected_ingredients)]
-
-    # Count unique recipes
-    num_recipes = filtered_df["Recipe_Index"].nunique()
-
-    return f"{num_recipes}"
-
 # average rating callback
 df = pd.read_csv("data/processed/processed_cookie_data.csv")
 
