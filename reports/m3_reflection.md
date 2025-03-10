@@ -34,3 +34,7 @@ At the moment, our dashboard does a good job at displaying overall information a
 ## Intentional Deviations from Visualization Best Practices
 
 We have not intentionally deviated from any of the best practices that we learned in 531 regarding effective visualizations.
+
+## Challenging
+
+I added tooltips to our dashboard as inspiration from Group 4, who effectively use tooltips on their plots. Their implementation enhances data accessibility and interactivity. By integrating similar tooltips into our dashboard, users can view rounded ingredient quantities, units, and names without cluttering the visual space. This approach not only improves interactivity but also avoids complexity.
