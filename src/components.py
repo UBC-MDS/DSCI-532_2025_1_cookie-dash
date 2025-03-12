@@ -331,7 +331,7 @@ def number_of_recipes_per_ingredient():
                 dvc.Vega(
                     id='ingredient_bar_chart',
                     spec={},
-                    style={"width": "100%", "height": "40%"},
+                    style={"width": "100%", "height": "35%"},  
                 ),
                 style={
                     "flex": "0 0 auto",  
@@ -353,12 +353,12 @@ def number_of_recipes_per_ingredient():
                     "flexWrap": "wrap",  
                     "justifyContent": "center",
                     "alignItems": "center",
-                    "fontSize": "0.35em",  
-                    "lineHeight": "1.2em",
+                    "fontSize": "0.7em",  
+                    "lineHeight": "1.5em",
                     "gap": "5px",
                     "textAlign": "center",
-                    "maxHeight": "100%",  
-                    "overflow": "hidden"
+                    "maxHeight": "150px",  
+                    "overflowY": "auto"  
                 }
             )
         ],
@@ -378,6 +378,8 @@ def number_of_recipes_per_ingredient():
             "border": "2px solid #D2A679",
         }
     )
+
+
 
 def recipes_and_complexity():
     """

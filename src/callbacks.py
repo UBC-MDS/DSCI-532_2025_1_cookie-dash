@@ -272,7 +272,7 @@ def create_ingredient_distribution(rating_range=[0, 1], selected_ingredients=Non
         )
         .properties(
             width="container",
-            height=alt.Step(30)  
+            height=alt.Step(28)  
         )
         .configure_view(strokeWidth=0)
         .configure_axis(
