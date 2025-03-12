@@ -1,5 +1,6 @@
 from dash import Dash, html, dcc
 import dash_bootstrap_components as dbc
+from flask_caching import Cache
 
 # Import component functions
 from .components import *
@@ -16,6 +17,14 @@ app = Dash(
 )
 
 server = app.server
+
+cache = Cache(
+    server,
+    config={
+        'CACHE_TYPE': 'filesystem',
+        'CACHE_DIR': 'tmp'
+    }
+)
 
 # Layout mimicking the original HTML structure
 app.layout = html.Div(

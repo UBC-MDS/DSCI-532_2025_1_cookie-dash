@@ -5,6 +5,7 @@ import ast
 import altair as alt
 import json
 import plotly.graph_objects as go
+from .app import cache
 
 # ingredient icons callbacks
 csv_path = "data/processed/processed_cookie_data.csv"
@@ -21,6 +22,7 @@ except FileNotFoundError:
     Output('selected-subcategory', 'data'),
     Input({'type': 'subcategory-button', 'index': ALL}, 'n_clicks')
 )
+@cache.memoize()
 def update_selected_subcategory(n_clicks_list):
     ctx = callback_context
     if not ctx.triggered or sum(n_clicks_list) == 0:
@@ -34,6 +36,7 @@ def update_selected_subcategory(n_clicks_list):
     Input('selected-subcategory', 'data'),
     State({'type': 'subcategory-button', 'index': ALL}, 'id')
 )
+@cache.memoize()
 def update_active_buttons(selected_subcat, ids):
     return [id_dict['index'] == selected_subcat for id_dict in ids]
 
@@ -53,6 +56,7 @@ except FileNotFoundError:
     Input('deselect-all-button', 'n_clicks'),
     State('ingredient-checklist', 'value')
 )
+@cache.memoize()
 def update_ingredient_checklist(selected_subcat, n_clicks_deselect, previously_selected):
     ctx = callback_context
     # If "Deselect All" was clicked, clear the selected ingredients.
@@ -103,6 +107,7 @@ def update_ingredient_checklist(selected_subcat, n_clicks_deselect, previously_s
     Output('selected-ingredients-list', 'children'),
     Input('ingredient-checklist', 'value')
 )
+@cache.memoize()
 def show_selected_ingredients(selected_ingredients):
     if not selected_ingredients:
         return [html.Li("No ingredients selected")]
@@ -116,6 +121,7 @@ df = pd.read_csv("data/processed/processed_cookie_data.csv")
     Input("rating-range", "value"),
     Input("ingredient-checklist", "value"),
 )
+@cache.memoize()
 def create_ratings_distribution(rating_range=[0, 1], selected_ingredients=None):
     filtered_df = df.query('Rating.between(@rating_range[0], @rating_range[1])')
 
@@ -153,6 +159,7 @@ df = pd.read_csv("data/processed/processed_cookie_data.csv")
     Input("rating-range", "value"),
     Input("ingredient-checklist", "value"),
 )
+@cache.memoize()
 def update_gauge_chart(_, rating_range=[0, 1], selected_ingredients=None):
     """
     Compute the average rating and update the gauge with a moving dial color.
@@ -219,6 +226,7 @@ def update_gauge_chart(_, rating_range=[0, 1], selected_ingredients=None):
     Input("rating-range", "value"),
     Input("ingredient-checklist", "value")
 )
+@cache.memoize()
 def create_ingredient_distribution(rating_range=[0, 1], selected_ingredients=None):
     """
     Generates a bar chart showing the top 10 ingredients and a compact multi-column list of remaining ingredients.
@@ -313,6 +321,7 @@ except FileNotFoundError:
     [Input("rating-range", "value"),
      Input("ingredient-checklist", "value")]
 )
+@cache.memoize()
 def update_recipe_list(rating_range=[0, 1], selected_ingredients=None): 
     """
     Updates the displayed list of recipes based on selected ingredients and rating range.
