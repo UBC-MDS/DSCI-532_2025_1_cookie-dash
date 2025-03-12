@@ -8,12 +8,12 @@ import plotly.graph_objects as go
 from .app import cache
 
 # ingredient icons callbacks
-csv_path = "data/processed/processed_cookie_data.csv"
+parquet_path = "data/processed/processed_cookie_data.parquet"
 
 try:
-    df_recipes = pd.read_csv(csv_path)
+    df_recipes = pd.read_parquet(parquet_path)
 except FileNotFoundError:
-    # Create empty DataFrame with expected columns if CSV not found
+    # Create empty DataFrame with expected columns if parquet not found
     df_recipes = pd.DataFrame(
         columns=["Recipe_Index", "Complexity_Score", "Rating", "Ingredient", "category", "subcategory"]
     )
@@ -42,7 +42,7 @@ def update_active_buttons(selected_subcat, ids):
 
 # ingredient filter callbacks
 try:
-    df_recipes = pd.read_csv(csv_path)
+    df_recipes = pd.read_parquet(parquet_path)
 except FileNotFoundError:
     df_recipes = pd.DataFrame(
         columns=["Recipe_Index", "Complexity_Score", "Rating", 
@@ -114,7 +114,7 @@ def show_selected_ingredients(selected_ingredients):
     return [html.Li(ing) for ing in selected_ingredients]
 
 # distribution recipe ratings callbacks to update x-axis based on slider values
-df = pd.read_csv("data/processed/processed_cookie_data.csv")
+df = pd.read_parquet("data/processed/processed_cookie_data.parquet")
 
 @callback(
     Output("rating_histogram", "spec"),
@@ -151,7 +151,7 @@ def create_ratings_distribution(rating_range=[0, 1], selected_ingredients=None):
     return (chart.to_dict())
 
 # average rating callback
-df = pd.read_csv("data/processed/processed_cookie_data.csv")
+df = pd.read_parquet("data/processed/processed_cookie_data.parquet")
 
 @callback(
     Output("rating_gauge", "figure"),
@@ -305,7 +305,7 @@ def create_ingredient_distribution(rating_range=[0, 1], selected_ingredients=Non
 
 # recipes and complexity callbacks
 try:
-    df_recipes = pd.read_csv(csv_path)
+    df_recipes = pd.read_parquet(parquet_path)
 
     # Ensure Complexity_Score exists
     if "Complexity_Score" not in df_recipes.columns:
