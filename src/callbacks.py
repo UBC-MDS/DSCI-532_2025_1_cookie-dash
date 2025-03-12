@@ -5,14 +5,15 @@ import ast
 import altair as alt
 import json
 import plotly.graph_objects as go
+from .app import cache
 
 # ingredient icons callbacks
-csv_path = "data/processed/processed_cookie_data.csv"
+parquet_path = "data/processed/processed_cookie_data.parquet"
 
 try:
-    df_recipes = pd.read_csv(csv_path)
+    df_recipes = pd.read_parquet(parquet_path)
 except FileNotFoundError:
-    # Create empty DataFrame with expected columns if CSV not found
+    # Create empty DataFrame with expected columns if parquet not found
     df_recipes = pd.DataFrame(
         columns=["Recipe_Index", "Complexity_Score", "Rating", "Ingredient", "category", "subcategory"]
     )
@@ -21,6 +22,7 @@ except FileNotFoundError:
     Output('selected-subcategory', 'data'),
     Input({'type': 'subcategory-button', 'index': ALL}, 'n_clicks')
 )
+@cache.memoize()
 def update_selected_subcategory(n_clicks_list):
     ctx = callback_context
     if not ctx.triggered or sum(n_clicks_list) == 0:
@@ -34,12 +36,13 @@ def update_selected_subcategory(n_clicks_list):
     Input('selected-subcategory', 'data'),
     State({'type': 'subcategory-button', 'index': ALL}, 'id')
 )
+@cache.memoize()
 def update_active_buttons(selected_subcat, ids):
     return [id_dict['index'] == selected_subcat for id_dict in ids]
 
 # ingredient filter callbacks
 try:
-    df_recipes = pd.read_csv(csv_path)
+    df_recipes = pd.read_parquet(parquet_path)
 except FileNotFoundError:
     df_recipes = pd.DataFrame(
         columns=["Recipe_Index", "Complexity_Score", "Rating", 
@@ -53,6 +56,7 @@ except FileNotFoundError:
     Input('deselect-all-button', 'n_clicks'),
     State('ingredient-checklist', 'value')
 )
+@cache.memoize()
 def update_ingredient_checklist(selected_subcat, n_clicks_deselect, previously_selected):
     ctx = callback_context
     # If "Deselect All" was clicked, clear the selected ingredients.
@@ -103,19 +107,21 @@ def update_ingredient_checklist(selected_subcat, n_clicks_deselect, previously_s
     Output('selected-ingredients-list', 'children'),
     Input('ingredient-checklist', 'value')
 )
+@cache.memoize()
 def show_selected_ingredients(selected_ingredients):
     if not selected_ingredients:
         return [html.Li("No ingredients selected")]
     return [html.Li(ing) for ing in selected_ingredients]
 
 # distribution recipe ratings callbacks to update x-axis based on slider values
-df = pd.read_csv("data/processed/processed_cookie_data.csv")
+df = pd.read_parquet("data/processed/processed_cookie_data.parquet")
 
 @callback(
     Output("rating_histogram", "spec"),
     Input("rating-range", "value"),
     Input("ingredient-checklist", "value"),
 )
+@cache.memoize()
 def create_ratings_distribution(rating_range=[0, 1], selected_ingredients=None):
     filtered_df = df.query('Rating.between(@rating_range[0], @rating_range[1])')
 
@@ -145,7 +151,7 @@ def create_ratings_distribution(rating_range=[0, 1], selected_ingredients=None):
     return (chart.to_dict())
 
 # average rating callback
-df = pd.read_csv("data/processed/processed_cookie_data.csv")
+df = pd.read_parquet("data/processed/processed_cookie_data.parquet")
 
 @callback(
     Output("rating_gauge", "figure"),
@@ -153,6 +159,7 @@ df = pd.read_csv("data/processed/processed_cookie_data.csv")
     Input("rating-range", "value"),
     Input("ingredient-checklist", "value"),
 )
+@cache.memoize()
 def update_gauge_chart(_, rating_range=[0, 1], selected_ingredients=None):
     """
     Compute the average rating and update the gauge with a moving dial color.
@@ -219,6 +226,7 @@ def update_gauge_chart(_, rating_range=[0, 1], selected_ingredients=None):
     Input("rating-range", "value"),
     Input("ingredient-checklist", "value")
 )
+@cache.memoize()
 def create_ingredient_distribution(rating_range=[0, 1], selected_ingredients=None):
     """
     Generates a bar chart showing the top 10 ingredients and a compact multi-column list of remaining ingredients.
@@ -297,7 +305,7 @@ def create_ingredient_distribution(rating_range=[0, 1], selected_ingredients=Non
 
 # recipes and complexity callbacks
 try:
-    df_recipes = pd.read_csv(csv_path)
+    df_recipes = pd.read_parquet(parquet_path)
 
     # Ensure Complexity_Score exists
     if "Complexity_Score" not in df_recipes.columns:
@@ -313,6 +321,7 @@ except FileNotFoundError:
     [Input("rating-range", "value"),
      Input("ingredient-checklist", "value")]
 )
+@cache.memoize()
 def update_recipe_list(rating_range=[0, 1], selected_ingredients=None): 
     """
     Updates the displayed list of recipes based on selected ingredients and rating range.
