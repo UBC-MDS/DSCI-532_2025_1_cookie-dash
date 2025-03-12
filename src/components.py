@@ -20,8 +20,8 @@ def footer():
     return html.Footer(
         children=[
             html.P("Cookie Dash interactive dashboard empowers home bakers and culinary enthusiasts to filter and compare chocolate chip cookie recipes based on ingredient types, ratings, and complexity using dynamic visualizations.",
-                    style={"font-size": "12px", "margin-bottom": "2px"}),
-            html.P("Developers: Mu (Henry) Ha, Javier Martinez, Stephanie Ta, and Zuer (Rebecca) Zhong. Last updated: March 1, 2025",
+                    style={"font-size": "12px", "margin-bottom": "2px", "margin-top": "0px"}),
+            html.P("Developers: Mu (Henry) Ha, Javier Martinez, Stephanie Ta, and Zuer (Rebecca) Zhong. Last updated: March 15, 2025",
                        style={"font-size": "12px", "margin-bottom": "2px"}),
             html.A("GitHub Repository", href="https://github.com/UBC-MDS/DSCI-532_2025_1_cookie-dash",
                        target="_blank", style={"font-size": "12px", "lineHeight": "1"}),
@@ -304,7 +304,7 @@ def average_rating():
             "gridColumnStart": "col6-start",
             "gridColumnEnd": "col9-start",
             "gridRowStart": "row6-start",
-            "gridRowEnd": "row9-start",
+            "gridRowEnd": "row9-end",
             "overflow": "hidden",  # Clip slight overflow
             "borderRadius": "5px",
             "border": "2px solid #D2A679",

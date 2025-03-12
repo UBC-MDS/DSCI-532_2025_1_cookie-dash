@@ -45,7 +45,7 @@ app.layout = html.Div(
                             "[row1-start] 1fr [row2-start] 1fr [row3-start] 1fr [row4-start] 1fr "
                             "[row5-start] 1fr [row6-start] 1fr [row7-start] 1fr [row8-start] 1fr [row9-end]"
                         ),
-                        "height": "85vh",
+                        "height": "80vh",
                         "gap": "1vw",
                         "margin": "0 5vw",
                     }
