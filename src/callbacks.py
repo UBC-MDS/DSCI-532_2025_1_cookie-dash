@@ -350,7 +350,7 @@ def update_recipe_list(rating_range=[0, 1], selected_ingredients=None):
         .apply(lambda df: "\n".join([f"{round(qty, 1)} {unit} {ing}" for qty, unit, ing in zip(df["Quantity"], df["Unit"], df["Ingredient"])]))
         .reset_index()
         .rename(columns={0: "Formatted_Ingredients"})
-    )
+    ).sort_values("Recipe_Index")
 
     # Display filtered recipes with tooltips for full ingredient descriptions
     recipe_list = []
@@ -363,14 +363,20 @@ def update_recipe_list(rating_range=[0, 1], selected_ingredients=None):
         # Create list item with Recipe Index and Complexity Score
         recipe_list.append(
             html.Li(
-                f"{row['Recipe_Index']}: {row['Complexity_Score']:.2f}",  # Show Recipe ID + Complexity Score
-                id=recipe_id,  # Set ID for tooltip reference
+                [
+                    html.Span(f"{row['Recipe_Index']}", style={"flex": "1", "textAlign": "left"}),
+                    html.Span(f"{row['Complexity_Score']:.2f}", style={"textAlign": "right", "minWidth": "50px"})
+                ],
+                id=recipe_id,
                 style={
                     "padding": "5px",
                     "borderBottom": "1px solid #fff",
                     "backgroundColor": "#B88C64",
                     "color": "black",
-                    "cursor": "pointer"
+                    "cursor": "pointer",
+                    "display": "flex",
+                    "justifyContent": "space-between",
+                    "alignItems": "center"
                 }
             )
         )
