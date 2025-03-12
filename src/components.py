@@ -20,15 +20,20 @@ def footer():
     return html.Footer(
         children=[
             html.P("Cookie Dash interactive dashboard empowers home bakers and culinary enthusiasts to filter and compare chocolate chip cookie recipes based on ingredient types, ratings, and complexity using dynamic visualizations.",
-                    style={"font-size": "12px", "margin-bottom": "2px", "margin-top": "0px"}),
-            html.P("Developers: Mu (Henry) Ha, Javier Martinez, Stephanie Ta, and Zuer (Rebecca) Zhong. Last updated: March 15, 2025",
-                       style={"font-size": "12px", "margin-bottom": "2px"}),
-            html.A("GitHub Repository", href="https://github.com/UBC-MDS/DSCI-532_2025_1_cookie-dash",
-                       target="_blank", style={"font-size": "12px", "lineHeight": "1"}),
-            ],
+                   style={"font-size": "12px", "margin-bottom": "2px", "margin-top": "0px"}),
+
+            html.P([
+                "Developers: Mu (Henry) Ha, Javier Martinez, Stephanie Ta, and Zuer (Rebecca) Zhong.",
+                html.Span("  ", style={"white-space": "pre"}),
+                "Last updated: March 15, 2025",
+                html.Span("  ", style={"white-space": "pre"}),
+                html.A("GitHub Repository", href="https://github.com/UBC-MDS/DSCI-532_2025_1_cookie-dash",
+                       style={"font-size": "12px", "lineHeight": "1"})
+            ], style={"font-size": "12px", "margin-bottom": "2px"}),
+        ],
         className="p-2",
         style={
-            "height": "auto", 
+            "height": "auto",
             "margin": "1vh 5vw",
         }
     )
