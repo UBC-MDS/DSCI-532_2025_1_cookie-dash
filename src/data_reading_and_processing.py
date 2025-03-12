@@ -314,8 +314,11 @@ def main():
     # Compute complexity score using the 'Text' column
     processed_data = calculate_complexity_score(processed_data)
 
-    # Save processed data
+    # Save processed data a csv file
     processed_data.to_csv("data/processed/processed_cookie_data.csv")
+
+    # Save the processed data as a parquet file
+    processed_data.to_parquet("data/processed/processed_cookie_data.parquet")
 
 if __name__ == "__main__":
     main()
