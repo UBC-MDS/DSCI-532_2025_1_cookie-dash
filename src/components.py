@@ -396,8 +396,7 @@ def recipes_and_complexity():
                 id="recipe-list", style={
                 "listStyleType": "none",
                 "padding": "10px",
-                #"maxHeight": "320px",
-                "height": "80%", # make height dynamic
+                "height": "80%",
                 "overflowY": "auto",
                 "backgroundColor": "#F5E1C8",
                 "textAlign": "left",
