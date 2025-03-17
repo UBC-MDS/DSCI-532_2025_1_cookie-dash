@@ -22,7 +22,6 @@ except FileNotFoundError:
     Output('selected-subcategory', 'data'),
     Input({'type': 'subcategory-button', 'index': ALL}, 'n_clicks')
 )
-@cache.memoize()
 def update_selected_subcategory(n_clicks_list):
     ctx = callback_context
     # If there is no trigger or no clicks, default to "flour"
@@ -37,7 +36,6 @@ def update_selected_subcategory(n_clicks_list):
     Input('selected-subcategory', 'data'),
     State({'type': 'subcategory-button', 'index': ALL}, 'id')
 )
-@cache.memoize()
 def update_active_buttons(selected_subcat, ids):
     return [id_dict['index'] == selected_subcat for id_dict in ids]
 
@@ -57,7 +55,6 @@ except FileNotFoundError:
     Input('deselect-all-button', 'n_clicks'),
     State('ingredient-checklist', 'value')
 )
-@cache.memoize()
 def update_ingredient_checklist(selected_subcat, n_clicks_deselect, previously_selected):
     ctx = callback_context
     # If "Deselect All" was clicked, clear the selected ingredients.
@@ -116,7 +113,6 @@ def update_ingredient_checklist(selected_subcat, n_clicks_deselect, previously_s
     Output('selected-ingredients-list', 'children'),
     Input('ingredient-checklist', 'value')
 )
-@cache.memoize()
 def show_selected_ingredients(selected_ingredients):
     if not selected_ingredients:
         return [html.Li("No ingredients selected")]
