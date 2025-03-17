@@ -25,8 +25,9 @@ except FileNotFoundError:
 @cache.memoize()
 def update_selected_subcategory(n_clicks_list):
     ctx = callback_context
+    # If there is no trigger or no clicks, default to "flour"
     if not ctx.triggered or sum(n_clicks_list) == 0:
-        return df_recipes["Ingredient"].dropna().unique().tolist()
+        return "flour"
     triggered_id_str = ctx.triggered[0]['prop_id'].split('.')[0]
     triggered_id = ast.literal_eval(triggered_id_str)
     return triggered_id['index']
@@ -65,42 +66,50 @@ def update_ingredient_checklist(selected_subcat, n_clicks_deselect, previously_s
     else:
         new_value = previously_selected if previously_selected is not None else []
 
-    # Filter ingredients by subcategory if provided.
+    # Filter recipes for the chosen subcategory
     if not selected_subcat:
-        ingredients = df_recipes["Ingredient"].dropna().unique()
+        df_sub = df_recipes.copy()
     else:
-        df_sub = df_recipes[df_recipes["subcategory"] == selected_subcat]
-        ingredients = df_sub["Ingredient"].dropna().unique()
+        df_sub = df_recipes[df_recipes["subcategory"] == selected_subcat].copy()
+
+    # Sort by popularity high -> low
+    df_sub = df_sub.sort_values(by="Popularity_Score", ascending=False)
+    ingredients_sorted = df_sub["Ingredient"].dropna().unique()
 
     new_options = []
-    # Build options with a two-column label: ingredient name on left, popularity score on right.
-    for ing in ingredients:
+    for ing in ingredients_sorted:
         pop_series = df_recipes[df_recipes["Ingredient"] == ing]["Popularity_Score"]
-        pop_score = round(pop_series.mean() if not pop_series.empty else 0.00, 2)
+        pop_score = pop_series.mean() if not pop_series.empty else 0.00
+        # Format to always have two decimals
+        pop_score_str = f"{pop_score:.2f}"
+
         label = html.Div(
             [
                 html.Span(ing, style={"flex": "1", "textAlign": "left"}),
-                html.Span(str(pop_score), style={"minWidth": "50px", "textAlign": "right"})
+                html.Span(pop_score_str, style={"minWidth": "50px", "textAlign": "right"})
             ],
             style={"display": "flex", "justifyContent": "space-between", "width": "100%"}
         )
         new_options.append({"label": label, "value": ing})
 
     # Preserve any previously selected ingredient not in the current subcategory.
+    # (You may choose to sort these or just append them at the end.)
     if not (ctx.triggered and 'deselect-all-button' in ctx.triggered[0]['prop_id']):
-        old_still_needed = [ing for ing in new_value if ing not in ingredients]
+        old_still_needed = [ing for ing in new_value if ing not in ingredients_sorted]
         for old_ing in old_still_needed:
             pop_series = df_recipes[df_recipes["Ingredient"] == old_ing]["Popularity_Score"]
-            pop_score = round(pop_series.mean() if not pop_series.empty else 0.0, 1)
+            pop_score = pop_series.mean() if not pop_series.empty else 0.00
+            pop_score_str = f"{pop_score:.2f}"
+
             label = html.Div(
                 [
                     html.Span(old_ing, style={"flex": "1", "textAlign": "left"}),
-                    html.Span(str(pop_score), style={"minWidth": "50px", "textAlign": "right"})
+                    html.Span(pop_score_str, style={"minWidth": "50px", "textAlign": "right"})
                 ],
                 style={"display": "flex", "justifyContent": "space-between", "width": "100%"}
             )
             new_options.append({"label": label, "value": old_ing})
-    
+
     return new_options, new_value
 
 @callback(
