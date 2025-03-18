@@ -36,5 +36,4 @@ With additional time, we would enhance dashboard responsiveness to ensure seamle
 
 ## Particularly Useful Insights and Desired Support
 
-Feedback emphasizing readability and UI consistency proved particularly valuable, directly improving user engagement and interface clarity. If anything, more structured guidance or demonstrations on dynamic component resizing would have helped overcome earlier implementation challenges.
-
+Feedback emphasizing readability and UI consistency proved particularly valuable, directly improving user engagement and interface clarity. Additionally, having a clearer file structure presented in the first lab would have been beneficial, as we initially had each component in separate .py files and later needed to reorganize them into callback.py and component.py. If anything, more structured guidance or demonstrations on dynamic component resizing would have helped overcome earlier implementation challenges.
