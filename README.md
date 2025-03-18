@@ -17,7 +17,7 @@ Finding the right cookie recipe can be overwhelming. Our app helps you:
 
 🎥 **Demo GIF:** 
 
-![cookie](https://github.com/user-attachments/assets/bebc52a1-1e3a-4db7-9273-7cfb92375c09)
+![cookie](https://github.com/user-attachments/assets/337844fd-400f-41a2-ade0-013b4552bcf3)
 
 ---
 
