@@ -350,7 +350,14 @@ def update_recipe_list(rating_range=[0, 1], selected_ingredients=None):
         .apply(lambda df: "\n".join([f"{round(qty, 1)} {unit} {ing}" for qty, unit, ing in zip(df["Quantity"], df["Unit"], df["Ingredient"])]))
         .reset_index()
         .rename(columns={0: "Formatted_Ingredients"})
-    ).sort_values("Recipe_Index")
+    )
+    grouped_recipes["Numeric_Index"] = (
+        grouped_recipes["Recipe_Index"]
+        .str.extract(r"(\d+)")    
+        .astype(int)              
+    )
+    grouped_recipes = grouped_recipes.sort_values("Numeric_Index")
+
 
     # Display filtered recipes with tooltips for full ingredient descriptions
     recipe_list = []
